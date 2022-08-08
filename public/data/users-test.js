@@ -1,6 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.users = void 0;
 //check skill level type and descriptions
-const users = [
+exports.users = [
     {
         user_id: "1a",
         name: "Barry Curtis",
@@ -262,4 +264,3 @@ const users = [
         event_id: 1,
     },
 ];
-module.exports = users;

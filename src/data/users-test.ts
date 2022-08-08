@@ -14,7 +14,7 @@ interface User {
 
 //check skill level type and descriptions
 
-const users: User[] = [
+export const users: User[] = [
   {
     user_id: "1a",
     name: "Barry Curtis",
@@ -296,5 +296,3 @@ const users: User[] = [
     event_id: 1,
   },
 ];
-
-module.exports = users;

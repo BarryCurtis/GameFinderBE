@@ -6,7 +6,7 @@ interface Comments {
 }
 
 // check data types = user_id
-const comments: Comments[] = [
+export const comments: Comments[] = [
   {
     comment_id: 1,
     event_id: 1,
@@ -248,5 +248,3 @@ const comments: Comments[] = [
     comment_body: "Is this a regular game?",
   },
 ];
-
-module.exports = comments;

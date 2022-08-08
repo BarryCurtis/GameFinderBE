@@ -15,7 +15,7 @@ interface Sportevent {
 
 //check data types - used_id, date, time, location
 
-const sportevents: Sportevent[] = [
+export const sportevents: Sportevent[] = [
   {
     event_id: 1,
     user_id: "1a",
@@ -297,5 +297,3 @@ const sportevents: Sportevent[] = [
     age_group: "30-50",
   },
 ];
-
-module.exports = sportevents;

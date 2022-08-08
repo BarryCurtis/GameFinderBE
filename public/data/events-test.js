@@ -1,6 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sportevents = void 0;
 //check data types - used_id, date, time, location
-const sportevents = [
+exports.sportevents = [
     {
         event_id: 1,
         user_id: "1a",
@@ -282,4 +284,3 @@ const sportevents = [
         age_group: "30-50",
     },
 ];
-module.exports = sportevents;
