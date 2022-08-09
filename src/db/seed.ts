@@ -5,7 +5,10 @@ import format from "pg-format";
 
 const seed = ({ comments, users, sportevents, userevents }) => {
   return db
-    .query(`DROP TABLE IF EXISTS comments`)
+    .query(`DROP TABLE IF EXISTS userevents`)
+    .then(() => {
+      db.query(`DROP TABLE IF EXISTS comments`);
+    })
     .then(() => {
       return db.query(`DROP TABLE IF EXISTS events`);
     })
@@ -43,12 +46,13 @@ const seed = ({ comments, users, sportevents, userevents }) => {
       age_group TEXT,
       cost INT
       );`);
-    }).then(() => {
+    })
+    .then(() => {
       return db.query(`
      CREATE TABLE userevents (
       userevent_id SERIAL PRIMARY KEY,
-      firebase_id INT REFERENCES users(user_id),
-      event_id INT REFERENCES events(event_id),
+      firebase_id VARCHAR REFERENCES users(firebase_id),
+      event_id INT REFERENCES events(event_id)
       );`);
     })
     .then(() => {
@@ -60,7 +64,8 @@ const seed = ({ comments, users, sportevents, userevents }) => {
       comment_body TEXT,
       comment_time TIMESTAMP NOT NULL
       );`);
-    }).then(() => {
+    })
+    .then(() => {
       const queryStr = format(
         `
       INSERT INTO users
@@ -69,14 +74,33 @@ const seed = ({ comments, users, sportevents, userevents }) => {
         %L
       RETURNING *;
       `,
-      users.map(({ firebase_id, name, username, age, gender, profile_icon, skills_level, rating, event_id}) =>
-      [
-        firebase_id, name, username, age, gender, profile_icon, skills_level, rating, event_id
-      ])
+        users.map(
+          ({
+            firebase_id,
+            name,
+            username,
+            age,
+            gender,
+            profile_icon,
+            skills_level,
+            rating,
+            event_id,
+          }) => [
+            firebase_id,
+            name,
+            username,
+            age,
+            gender,
+            profile_icon,
+            skills_level,
+            rating,
+            event_id,
+          ]
+        )
       );
-      return db.query(queryStr)
+      return db.query(queryStr);
     })
-    .then(()=>{
+    .then(() => {
       const queryStr = format(
         `
       INSERT INTO events
@@ -85,14 +109,37 @@ const seed = ({ comments, users, sportevents, userevents }) => {
         %L
       RETURNING *;
       `,
-      sportevents.map(({ firebase_id, category, date, time, duration, gender, skills_level, location, needed_players, age_group, cost}) =>
-      [
-        firebase_id, category, date, time, duration, gender, skills_level, location, needed_players, age_group, cost
-      ])
+        sportevents.map(
+          ({
+            firebase_id,
+            category,
+            date,
+            time,
+            duration,
+            gender,
+            skills_level,
+            location,
+            needed_players,
+            age_group,
+            cost,
+          }) => [
+            firebase_id,
+            category,
+            date,
+            time,
+            duration,
+            gender,
+            skills_level,
+            location,
+            needed_players,
+            age_group,
+            cost,
+          ]
+        )
       );
-      return db.query(queryStr)
+      return db.query(queryStr);
     })
-    .then(()=>{
+    .then(() => {
       const queryStr = format(
         `
       INSERT INTO comments
@@ -101,14 +148,18 @@ const seed = ({ comments, users, sportevents, userevents }) => {
         %L
       RETURNING *;
       `,
-      comments.map(({ event_id, firebase_id, comment_body, comment_time}) =>
-      [
-        event_id, firebase_id, comment_body, comment_time
-      ])
+        comments.map(
+          ({ event_id, firebase_id, comment_body, comment_time }) => [
+            event_id,
+            firebase_id,
+            comment_body,
+            comment_time,
+          ]
+        )
       );
-      return db.query(queryStr)
+      return db.query(queryStr);
     })
-    .then(()=>{
+    .then(() => {
       const queryStr = format(
         `
       INSERT INTO userevents
@@ -117,13 +168,10 @@ const seed = ({ comments, users, sportevents, userevents }) => {
         %L
       RETURNING *;
       `,
-      userevents.map(({ event_id, firebase_id }) =>
-      [
-        event_id, firebase_id
-      ])
+        userevents.map(({ event_id, firebase_id }) => [event_id, firebase_id])
       );
-      return db.query(queryStr)
-    })
+      return db.query(queryStr);
+    });
 };
 
 export default seed;
