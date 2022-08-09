@@ -1,8 +1,9 @@
-const db = require(".");
-const format = require("pg-format");
-const createUsersRef = require("../utilities");
+import db from "./connection";
+import format from "pg-format";
 
-const seed = () => {
+// const createUsersRef = require("../utilities");
+
+const seed = ({ comments, users, sportevents }) => {
   return db
     .query(`DROP TABLE IF EXISTS users`)
     .then(() => {
@@ -17,9 +18,9 @@ const seed = () => {
         user_id SERIAL PRIMARY KEY,
         firebase_id VARCHAR NOT NULL,
         username VARCHAR(50) NOT NULL,
-        first_name VARCHAR(50) NOT NULL,
-        last_name VARCHAR(50) NOT NULL,
+        name VARCHAR(100) NOT NULL,
         age INT,
+        gender TEXT,
         profile_icon VARCHAR,
         skills_level TEXT,
         rating INT,
@@ -34,11 +35,11 @@ const seed = () => {
       category VARCHAR NOT NULL,
       date DATE NOT NULL,
       time TIME NOT NULL,
+      duration TIME NOT NULL,
       gender TEXT,
       skills_level TEXT,
       location VARCHAR NOT NULL,
       needed_players INT,
-      duration TIME NOT NULL,
       age_group TEXT,
       cost INT
       );`);
@@ -52,7 +53,22 @@ const seed = () => {
       comment_body TEXT,
       comment_time Timestamp NOT NULL
       );`);
-    });
+    }).then(() => {
+      const queryStr = format(
+        `
+      INSERT INTO users
+        (firebase_id, username, age, profile_icon, skills_level, rating, event_id)
+      VALUES
+        %L
+      RETURNING *;
+      `,
+      users.map(({ firebase_id, name, username, age, gender, profile_icon, skills_level, rating, event_id}) =>
+      [
+        firebase_id, name, username, age, gender, profile_icon, skills_level, rating, event_id
+      ])
+      );
+      return db.query(queryStr);
+    })
 };
 
-module.exports = seed;
+export default seed;
