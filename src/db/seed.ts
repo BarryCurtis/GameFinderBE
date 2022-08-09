@@ -3,7 +3,7 @@ import format from "pg-format";
 
 // const createUsersRef = require("../utilities");
 
-const seed = ({ comments, users, sportevents }) => {
+const seed = ({ comments, users, sportevents, userevents }) => {
   return db
     .query(`DROP TABLE IF EXISTS comments`)
     .then(() => {
@@ -43,9 +43,13 @@ const seed = ({ comments, users, sportevents }) => {
       age_group TEXT,
       cost INT
       );`);
-    }).then(()=>{
+    }).then(() => {
       return db.query(`
-      ALTER TABLE users ALTER COLUMN event_id TYPE INT REFERENCES events(event_id)`)
+     CREATE TABLE userevents (
+      userevent_id SERIAL PRIMARY KEY,
+      firebase_id INT REFERENCES users(user_id),
+      event_id INT REFERENCES events(event_id),
+      );`);
     })
     .then(() => {
       return db.query(`
@@ -100,6 +104,22 @@ const seed = ({ comments, users, sportevents }) => {
       comments.map(({ event_id, firebase_id, comment_body, comment_time}) =>
       [
         event_id, firebase_id, comment_body, comment_time
+      ])
+      );
+      return db.query(queryStr)
+    })
+    .then(()=>{
+      const queryStr = format(
+        `
+      INSERT INTO userevents
+        (event_id, firebase_id)
+      VALUES
+        %L
+      RETURNING *;
+      `,
+      userevents.map(({ event_id, firebase_id }) =>
+      [
+        event_id, firebase_id
       ])
       );
       return db.query(queryStr)
