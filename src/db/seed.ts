@@ -18,9 +18,9 @@ const seed = ({ comments, users, sportevents }) => {
         user_id SERIAL PRIMARY KEY,
         firebase_id VARCHAR NOT NULL,
         username VARCHAR(50) NOT NULL,
-        first_name VARCHAR(50) NOT NULL,
-        last_name VARCHAR(50) NOT NULL,
+        name VARCHAR(100) NOT NULL,
         age INT,
+        gender TEXT,
         profile_icon VARCHAR,
         skills_level TEXT,
         rating INT,
@@ -35,11 +35,11 @@ const seed = ({ comments, users, sportevents }) => {
       category VARCHAR NOT NULL,
       date DATE NOT NULL,
       time TIME NOT NULL,
+      duration TIME NOT NULL,
       gender TEXT,
       skills_level TEXT,
       location VARCHAR NOT NULL,
       needed_players INT,
-      duration TIME NOT NULL,
       age_group TEXT,
       cost INT
       );`);
@@ -62,9 +62,10 @@ const seed = ({ comments, users, sportevents }) => {
         %L
       RETURNING *;
       `,
-        users.map((user) => {
-          return [user.firebase_id, user.name, ];
-        })
+      users.map(({ firebase_id, name, username, age, gender, profile_icon, skills_level, rating, event_id}) =>
+      [
+        firebase_id, name, username, age, gender, profile_icon, skills_level, rating, event_id
+      ])
       );
       return db.query(queryStr);
     })
