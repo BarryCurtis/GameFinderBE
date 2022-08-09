@@ -1,30 +1,25 @@
-const db = require("./");
+const db = require(".");
 const format = require("pg-format");
 const createUsersRef = require("../utilities");
 
 const seed = ({ userData, eventsData }) => {
   return db
-    .query(`DROP TABLE IF EXISTS ;`)
+    .query(`DROP TABLE IF EXISTS users`)
     .then(() => {
-      return db
-        .query(`DROP TABLE IF EXISTS users`)
-        .then(() => {
-          return db.query(`DROP TABLE IF EXISTS events`);
-        })
-        .then(() => {
-          return db.query(`DROP TABLE IF EXISTS comments`);
-        });
+      return db.query(`DROP TABLE IF EXISTS events`);
+    })
+    .then(() => {
+      return db.query(`DROP TABLE IF EXISTS comments`);
     })
     .then(() => {
       return db.query(`
       CREATE TABLE users (
         user_id SERIAL PRIMARY KEY,
+        firebase_id VARCHAR NOT NULL,
         username VARCHAR(50) NOT NULL,
         first_name VARCHAR(50) NOT NULL,
         last_name VARCHAR(50) NOT NULL,
-        email TEXT,
         age INT,
-        password TEXT NOT NULL,
         profile_icon VARCHAR,
         skills_level TEXT,
         rating INT,
@@ -40,12 +35,12 @@ const seed = ({ userData, eventsData }) => {
       date DATE NOT NULL,
       time TIME NOT NULL,
       gender TEXT,
-      rating INT,
       skills_level TEXT,
       location VARCHAR NOT NULL,
       needed_players INT,
-      cost INT,
-      age_group TEXT
+      duration TIME NOT NULL,
+      age_group TEXT,
+      cost INT
       );`);
     })
     .then(() => {
