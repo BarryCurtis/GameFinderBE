@@ -1,9 +1,9 @@
-const db = require("./connection");
-const format = require("pg-format");
+import db from "./connection";
+import format from "pg-format";
 
 // const createUsersRef = require("../utilities");
 
-const seed = ({comments, users, sportevents}) => {
+const seed = ({ comments, users, sportevents }) => {
   return db
     .query(`DROP TABLE IF EXISTS users`)
     .then(() => {
@@ -53,7 +53,21 @@ const seed = ({comments, users, sportevents}) => {
       comment_body TEXT,
       comment_time Timestamp NOT NULL
       );`);
-    });
+    }).then(() => {
+      const queryStr = format(
+        `
+      INSERT INTO users
+        (firebase_id, username, age, profile_icon, skills_level, rating, event_id)
+      VALUES
+        %L
+      RETURNING *;
+      `,
+        users.map((user) => {
+          return [user.firebase_id, user.name, ];
+        })
+      );
+      return db.query(queryStr);
+    })
 };
 
 export default seed;
