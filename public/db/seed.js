@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("./connection"));
 const pg_format_1 = __importDefault(require("pg-format"));
 // const createUsersRef = require("../utilities");
-const seed = ({ comments, users, sportevents, userevents }) => {
+const seed = ({ comments, users, sportevents, userevents, }) => {
     return connection_1.default
         .query(`DROP TABLE IF EXISTS userevents`)
         .then(() => {

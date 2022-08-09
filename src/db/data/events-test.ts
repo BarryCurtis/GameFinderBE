@@ -1,4 +1,4 @@
-interface Sportevent {
+export default interface Sportevent {
   event_id: number;
   firebase_id: string;
   category: string;
@@ -136,7 +136,7 @@ export const sportevents: Sportevent[] = [
     time: "20:30",
     duration: 1,
     gender: "female",
-     skills_level: 5,
+    skills_level: 5,
     location: "M11 4DQ",
     needed_players: 3,
     age_group: "18-30",
@@ -164,7 +164,7 @@ export const sportevents: Sportevent[] = [
     time: "16:00",
     duration: 1,
     gender: "mixed",
-     skills_level: 5,
+    skills_level: 5,
     location: "M12 4TF",
     needed_players: 3,
     age_group: "18-30",
@@ -178,7 +178,7 @@ export const sportevents: Sportevent[] = [
     time: "21:00",
     duration: 1,
     gender: "female",
-     skills_level: 5,
+    skills_level: 5,
     location: "M12 4TF",
     needed_players: 3,
     age_group: "30-50",
@@ -192,7 +192,7 @@ export const sportevents: Sportevent[] = [
     time: "18:00",
     duration: 1,
     gender: "female",
-     skills_level: 5,
+    skills_level: 5,
     location: "M12 4DY",
     needed_players: 3,
     age_group: "50+",
@@ -234,7 +234,7 @@ export const sportevents: Sportevent[] = [
     time: "21:00",
     duration: 1,
     gender: "female",
-     skills_level: 5,
+    skills_level: 5,
     location: "M20 1HD",
     needed_players: 3,
     age_group: "18-30",
