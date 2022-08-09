@@ -3,7 +3,7 @@ const db = require("../public/db/connection");
 const seed = require("../public/db/seed");
 const request = require("supertest");
 const testData = require("../public/db/data/index");
-console.log(seed.default);
+
 beforeEach(() => {
   return seed.default(testData);
 });
@@ -18,16 +18,16 @@ describe("app", () => {
         .expect(200)
         .then(({ body: { events } }) => {
           expect(events.length).not.toBe(0);
-          events.foreEach((event) => {
+          events.forEach((event) => {
             expect(event).toEqual({
-              event_id: 1,
+              event_id: expect.any(Number),
               firebase_id: expect.any(String),
               category: expect.any(String),
               date: expect.any(String),
               time: expect.any(String),
               duration: expect.any(Number),
               gender: expect.any(String),
-              skills_level: expect.any(Number),
+              skills_level: expect.any(String),
               location: expect.any(String),
               needed_players: expect.any(Number),
               age_group: expect.any(String),
@@ -43,16 +43,16 @@ describe("app", () => {
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
-            events.foreEach((event) => {
+            events.forEach((event) => {
               expect(event).toEqual({
-                event_id: 1,
+                event_id: expect.any(Number),
                 firebase_id: expect.any(String),
                 category: "football",
                 date: expect.any(String),
                 time: expect.any(String),
                 duration: expect.any(Number),
                 gender: expect.any(String),
-                skills_level: expect.any(Number),
+                skills_level: expect.any(String),
                 location: expect.any(String),
                 needed_players: expect.any(Number),
                 age_group: expect.any(String),
@@ -67,16 +67,16 @@ describe("app", () => {
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
-            events.foreEach((event) => {
+            events.forEach((event) => {
               expect(event).toEqual({
-                event_id: 1,
+                event_id: expect.any(Number),
                 firebase_id: expect.any(String),
                 category: "netball",
                 date: expect.any(String),
                 time: expect.any(String),
                 duration: expect.any(Number),
                 gender: expect.any(String),
-                skills_level: expect.any(Number),
+                skills_level: expect.any(String),
                 location: expect.any(String),
                 needed_players: expect.any(Number),
                 age_group: expect.any(String),
@@ -91,16 +91,16 @@ describe("app", () => {
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
-            events.foreEach((event) => {
+            events.forEach((event) => {
               expect(event).toEqual({
-                event_id: 1,
+                event_id: expect.any(Number),
                 firebase_id: expect.any(String),
                 category: "squash",
                 date: expect.any(String),
                 time: expect.any(String),
                 duration: expect.any(Number),
                 gender: expect.any(String),
-                skills_level: expect.any(Number),
+                skills_level: expect.any(String),
                 location: expect.any(String),
                 needed_players: expect.any(Number),
                 age_group: expect.any(String),
@@ -115,16 +115,16 @@ describe("app", () => {
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
-            events.foreEach((event) => {
+            events.forEach((event) => {
               expect(event).toEqual({
-                event_id: 1,
+                event_id: expect.any(Number),
                 firebase_id: expect.any(String),
                 category: expect.any(String),
                 date: expect.any(String),
                 time: expect.any(String),
                 duration: expect.any(Number),
                 gender: "male",
-                skills_level: expect.any(Number),
+                skills_level: expect.any(String),
                 location: expect.any(String),
                 needed_players: expect.any(Number),
                 age_group: expect.any(String),
@@ -133,25 +133,25 @@ describe("app", () => {
             });
           });
       });
-      test("returns all events where age group is equal to 18-30 as an array of objects", () => {
+      test("returns all events where age group is equal to expect.any(Number)8-30 as an array of objects", () => {
         return request(app)
           .get("/api/events")
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
-            events.foreEach((event) => {
+            events.forEach((event) => {
               expect(event).toEqual({
-                event_id: 1,
+                event_id: expect.any(Number),
                 firebase_id: expect.any(String),
                 category: expect.any(String),
                 date: expect.any(String),
                 time: expect.any(String),
                 duration: expect.any(Number),
                 gender: expect.any(String),
-                skills_level: expect.any(Number),
+                skills_level: expect.any(String),
                 location: expect.any(String),
                 needed_players: expect.any(Number),
-                age_group: "18-30",
+                age_group: "expect.any(Number)8-30",
                 cost: expect.any(Number),
               });
             });
