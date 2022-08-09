@@ -1,18 +1,18 @@
+"use strict";
 const db = require(".");
 const format = require("pg-format");
 const createUsersRef = require("../utilities");
-
-const seed = ({ userData, eventsData }) => {
-  return db
-    .query(`DROP TABLE IF EXISTS users`)
-    .then(() => {
-      return db.query(`DROP TABLE IF EXISTS events`);
+const seed = () => {
+    return db
+        .query(`DROP TABLE IF EXISTS users`)
+        .then(() => {
+        return db.query(`DROP TABLE IF EXISTS events`);
     })
-    .then(() => {
-      return db.query(`DROP TABLE IF EXISTS comments`);
+        .then(() => {
+        return db.query(`DROP TABLE IF EXISTS comments`);
     })
-    .then(() => {
-      return db.query(`
+        .then(() => {
+        return db.query(`
       CREATE TABLE users (
         user_id SERIAL PRIMARY KEY,
         firebase_id VARCHAR NOT NULL,
@@ -26,11 +26,11 @@ const seed = ({ userData, eventsData }) => {
         event_id INT REFERENCES events(event_id)
       );`);
     })
-    .then(() => {
-      return db.query(`
+        .then(() => {
+        return db.query(`
      CREATE TABLE events (
       event_id SERIAL PRIMARY KEY,
-      user_id INT REFERENCES users(user_id),
+      firebase_id INT REFERENCES users(user_id),
       category VARCHAR NOT NULL,
       date DATE NOT NULL,
       time TIME NOT NULL,
@@ -43,16 +43,15 @@ const seed = ({ userData, eventsData }) => {
       cost INT
       );`);
     })
-    .then(() => {
-      return db.query(`
+        .then(() => {
+        return db.query(`
      CREATE TABLE comments (
       comment_id SERIAL PRIMARY KEY,
-      user_id INT REFERENCES users(user_id),
+      firebase_id INT REFERENCES users(user_id),
       event_id INT REFERENCES events(event_id),
       comment_body TEXT,
       comment_time Timestamp NOT NULL
       );`);
     });
 };
-
 module.exports = seed;
