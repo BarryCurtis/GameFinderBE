@@ -1,9 +1,23 @@
 import db from "./connection";
 import format from "pg-format";
+import Comments from "./data/comments-test";
+import User from "./data/users-test";
+import Sportevent from "./data/events-test";
+import Userevent from "./data/userevents-test";
 
 // const createUsersRef = require("../utilities");
 
-const seed = ({ comments, users, sportevents, userevents }) => {
+const seed = ({
+  comments,
+  users,
+  sportevents,
+  userevents,
+}: {
+  comments: Comments[];
+  users: User[];
+  sportevents: Sportevent[];
+  userevents: Userevent[];
+}) => {
   return db
     .query(`DROP TABLE IF EXISTS userevents`)
     .then(() => {
