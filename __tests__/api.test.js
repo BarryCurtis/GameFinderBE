@@ -3,10 +3,9 @@ const db = require("../public/db/connection");
 const seed = require("../public/db/seed");
 const request = require("supertest");
 const testData = require("../public/db/data/index");
-const { describe } = require("node:test");
-
+console.log(seed.default);
 beforeEach(() => {
-  return seed(testData);
+  return seed.default(testData);
 });
 
 afterAll(() => db.end());
