@@ -5,18 +5,18 @@ import format from "pg-format";
 
 const seed = ({ comments, users, sportevents }) => {
   return db
-    .query(`DROP TABLE IF EXISTS users`)
+    .query(`DROP TABLE IF EXISTS comments`)
     .then(() => {
       return db.query(`DROP TABLE IF EXISTS events`);
     })
     .then(() => {
-      return db.query(`DROP TABLE IF EXISTS comments`);
+      return db.query(`DROP TABLE IF EXISTS users`);
     })
     .then(() => {
       return db.query(`
       CREATE TABLE users (
         user_id SERIAL PRIMARY KEY,
-        firebase_id VARCHAR NOT NULL,
+        firebase_id VARCHAR UNIQUE NOT NULL,
         username VARCHAR(50) NOT NULL,
         name VARCHAR(100) NOT NULL,
         age INT,
@@ -24,18 +24,18 @@ const seed = ({ comments, users, sportevents }) => {
         profile_icon VARCHAR,
         skills_level TEXT,
         rating INT,
-        event_id INT REFERENCES events(event_id)
+        event_id INT
       );`);
     })
     .then(() => {
       return db.query(`
      CREATE TABLE events (
       event_id SERIAL PRIMARY KEY,
-      firebase_id INT REFERENCES users(user_id),
+      firebase_id VARCHAR REFERENCES users(firebase_id),
       category VARCHAR NOT NULL,
-      date text,
-      time text,
-      duration TIME NOT NULL,
+      date TEXT,
+      time TEXT,
+      duration INT NOT NULL,
       gender TEXT,
       skills_level TEXT,
       location VARCHAR NOT NULL,
@@ -43,21 +43,24 @@ const seed = ({ comments, users, sportevents }) => {
       age_group TEXT,
       cost INT
       );`);
+    }).then(()=>{
+      return db.query(`
+      ALTER TABLE users ALTER COLUMN event_id TYPE INT REFERENCES events(event_id)`)
     })
     .then(() => {
       return db.query(`
      CREATE TABLE comments (
       comment_id SERIAL PRIMARY KEY,
-      firebase_id INT REFERENCES users(user_id),
+      firebase_id VARCHAR REFERENCES users(firebase_id),
       event_id INT REFERENCES events(event_id),
       comment_body TEXT,
-      comment_time Timestamp NOT NULL
+      comment_time TIMESTAMP NOT NULL
       );`);
     }).then(() => {
       const queryStr = format(
         `
       INSERT INTO users
-        (firebase_id, username, age, profile_icon, skills_level, rating, event_id)
+        (firebase_id, name, username, age, gender, profile_icon, skills_level, rating, event_id)
       VALUES
         %L
       RETURNING *;

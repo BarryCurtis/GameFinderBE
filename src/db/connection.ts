@@ -1,7 +1,9 @@
 import {Pool} from "pg";
 
 
-require('dotenv').config({
+import dotenv from 'dotenv';
+
+dotenv.config({
     path: `${__dirname}/../../.env`,
   });
 
