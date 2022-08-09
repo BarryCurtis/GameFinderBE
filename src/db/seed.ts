@@ -1,8 +1,9 @@
-const db = require(".");
+const db = require("./connection");
 const format = require("pg-format");
-const createUsersRef = require("../utilities");
 
-const seed = () => {
+// const createUsersRef = require("../utilities");
+
+const seed = ({comments, users, sportevents}) => {
   return db
     .query(`DROP TABLE IF EXISTS users`)
     .then(() => {
@@ -55,4 +56,4 @@ const seed = () => {
     });
 };
 
-module.exports = seed;
+export default seed;
