@@ -33,8 +33,8 @@ const seed = ({ comments, users, sportevents }) => {
       event_id SERIAL PRIMARY KEY,
       firebase_id INT REFERENCES users(user_id),
       category VARCHAR NOT NULL,
-      date DATE NOT NULL,
-      time TIME NOT NULL,
+      date text,
+      time text,
       duration TIME NOT NULL,
       gender TEXT,
       skills_level TEXT,
@@ -67,7 +67,39 @@ const seed = ({ comments, users, sportevents }) => {
         firebase_id, name, username, age, gender, profile_icon, skills_level, rating, event_id
       ])
       );
-      return db.query(queryStr);
+      return db.query(queryStr)
+    })
+    .then(()=>{
+      const queryStr = format(
+        `
+      INSERT INTO events
+        (firebase_id, category, date, time, duration, gender, skills_level, location, needed_players, age_group, cost)
+      VALUES
+        %L
+      RETURNING *;
+      `,
+      sportevents.map(({ firebase_id, category, date, time, duration, gender, skills_level, location, needed_players, age_group, cost}) =>
+      [
+        firebase_id, category, date, time, duration, gender, skills_level, location, needed_players, age_group, cost
+      ])
+      );
+      return db.query(queryStr)
+    })
+    .then(()=>{
+      const queryStr = format(
+        `
+      INSERT INTO comments
+        (event_id, firebase_id, comment_body, comment_time)
+      VALUES
+        %L
+      RETURNING *;
+      `,
+      comments.map(({ event_id, firebase_id, comment_body, comment_time}) =>
+      [
+        event_id, firebase_id, comment_body, comment_time
+      ])
+      );
+      return db.query(queryStr)
     })
 };
 

@@ -28,7 +28,5 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const data = __importStar(require("./data/index"));
 const seed_1 = __importDefault(require("./seed"));
-console.log(data);
-console.log(seed_1.default);
-// const db = require("./");
-// seed(data).then(() => db.end());
+const connection_1 = __importDefault(require("./connection"));
+(0, seed_1.default)(data).then(() => connection_1.default.end());
