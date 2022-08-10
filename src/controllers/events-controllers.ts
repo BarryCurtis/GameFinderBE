@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import {fetchEvents, fetchEventsByFilter, addEvent} from "../models/events-models"
+import {fetchEvents, fetchEventsByFilter, fetchEventById, addEvent} from "../models/events-models"
+
+
 
 export const getEvents = (req:Request, res:Response, next:NextFunction) => {
     return fetchEvents()
@@ -21,6 +23,18 @@ export const getEventsByFilter = (req:Request, res:Response, next:NextFunction) 
     })
 }
 
+
+export const getEventById = (req:Request, res:Response, next:NextFunction) => {
+    const {event_id} = req.params;
+    fetchEventById(event_id)
+    .then((event) => {
+        res.status(200).send({event})
+    })
+    .catch((err)=> {
+        next(err)
+    });
+};
+
 export const postEvent = (req:Request, res:Response, next:NextFunction) => {
     const {firebase_id, category, date, time, duration, gender,
         skills_level, location, needed_players, age_group, cost} = req.body;
@@ -33,3 +47,4 @@ export const postEvent = (req:Request, res:Response, next:NextFunction) => {
         next(err);
     })
 }
+

@@ -173,6 +173,31 @@ describe("app", () => {
           });
       });
     });
+
+    describe("GET /api/events/:event_id", () => {
+      test("status:200, responds with the correct single event object", () => {
+        const event_id = 1;
+        return request(app)
+          .get(`/api/events/${event_id}`)
+          .expect(200)
+          .then(({ body: { event } }) => {
+            expect(event).toEqual({
+              event_id: event_id,
+              firebase_id: "1a",
+              category: "football",
+              date: "19/08/2022",
+              time: "20:00",
+              duration: 1,
+              gender: "male",
+              skills_level: "1",
+              location: "M8 0AE",
+              needed_players: 3,
+              age_group: "50+",
+              cost: 5,
+            });
+          });
+      });
+    });
   });
 });
 
@@ -203,6 +228,24 @@ describe("ERORR HANDLING", () => {
             expect(msg).toBe("Order by query invalid");
           });
       });
+    });
+  });
+  describe("GET /api/events/:event_id", () => {
+    test("status:400, responds with a bad request error message when passed a bad event ID", () => {
+      return request(app)
+        .get("/api/events/notAnId")
+        .expect(400)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("Invalid event ID notAnId");
+        });
+    });
+    test("status:404, respond with an error message when passed a valid ID number that is not found", () => {
+      return request(app)
+        .get("/api/events/9999")
+        .expect(404)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("Event not found for event_id: 9999");
+        });
     });
   });
 });

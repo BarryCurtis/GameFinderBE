@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addEvent = exports.fetchEventsByFilter = exports.fetchEvents = void 0;
+
 const connection_1 = __importDefault(require("../db/connection"));
 const fetchEvents = () => {
     return connection_1.default.query(`SELECT * FROM events`).then((result) => {
@@ -24,17 +24,4 @@ const fetchEventsByFilter = (sort_by = "time", order = "ASC", sport = "football"
     });
 };
 exports.fetchEventsByFilter = fetchEventsByFilter;
-const addEvent = (firebase_id, category, date, time, duration, gender, skills_level, location, needed_players, age_group, cost) => {
-    return connection_1.default.query(`INSERT INTO events
-        (firebase_id, category, date, time, duration, gender,
-        skills_level, location, needed_players, age_group, cost) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
-        RETURNING *;`, [firebase_id, category, date, time, duration, gender,
-        skills_level, location, needed_players, age_group, cost])
-        .then(({ rows }) => {
-        return rows[0];
-    })
-        .catch((err) => {
-        next(err);
-    });
-};
-exports.addEvent = addEvent;
+
