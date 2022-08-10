@@ -15,7 +15,7 @@ afterAll(() => {
 
 describe("app", () => {
   describe("GET api/events", () => {
-    test.only("status: 200, responds with all events as an array of events objects", () => {
+    test("status: 200, responds with all events as an array of events objects", () => {
       return request(app)
         .get("/api/events")
         .expect(200)
@@ -204,5 +204,42 @@ describe("ERORR HANDLING", () => {
           });
       });
     });
+  });
+});
+
+describe.only("09 POST - api/users", () => {
+  test("201 - Posts user with correct info", () => {
+    const newUser = {
+      firebase_id: "21a",
+      name: "Andrew Sheffield",
+      username: "AndyS",
+      age: 38,
+      gender: "male",
+      profile_icon:
+        "http://3.bp.blogspot.com/-A1soAA90eNI/U8l74yyHMcI/AAAAAAAADsg/IJ6_ltfctgY/s1600/cover+Ronaldo+Brazil.jpg",
+      skills_level: "fun",
+      rating: 25,
+      event_id: 21,
+    };
+
+    return request(app)
+      .post("/api/users/")
+      .send(newUser)
+      .expect(201)
+      .then((result) => {
+        expect(result.body.newuser).toEqual({
+          user_id: 21,
+          firebase_id: "21a",
+          name: "Andrew Sheffield",
+          username: "AndyS",
+          age: 38,
+          gender: "male",
+          profile_icon:
+            "http://3.bp.blogspot.com/-A1soAA90eNI/U8l74yyHMcI/AAAAAAAADsg/IJ6_ltfctgY/s1600/cover+Ronaldo+Brazil.jpg",
+          skills_level: "fun",
+          rating: 25,
+          event_id: 21,
+        });
+      });
   });
 });
