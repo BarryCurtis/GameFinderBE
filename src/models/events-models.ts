@@ -24,3 +24,27 @@ export const fetchEventsByFilter = (sort_by = "time", order = "ASC", sport = "fo
 
     
 }
+
+export const fetchEventById = (event_id) => {
+  if (isNaN(Number(event_id))) {
+    return Promise.reject({
+      status: 400,
+      msg: `Invalid event ID ${event_id}`
+    })
+  }
+  return db.query (
+    `SELECT *
+    FROM events
+    WHERE events.event_id = $1 
+    `, [event_id]
+  )
+  .then((result) => {
+    if (result.rows.length === 0) {
+      return Promise.reject({
+        status: 404,
+        msg: `Event not found for event_id: ${event_id}`,
+      });
+    }
+    return result.rows[0];
+  });
+};

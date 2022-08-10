@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchEventsByFilter = exports.fetchEvents = void 0;
+exports.fetchEventById = exports.fetchEventsByFilter = exports.fetchEvents = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const fetchEvents = () => {
     return connection_1.default.query(`SELECT * FROM events`).then((result) => {
@@ -24,3 +24,25 @@ const fetchEventsByFilter = (sort_by = "time", order = "ASC", sport = "football"
     });
 };
 exports.fetchEventsByFilter = fetchEventsByFilter;
+const fetchEventById = (event_id) => {
+    if (isNaN(Number(event_id))) {
+        return Promise.reject({
+            status: 400,
+            msg: `Invalid event ID ${event_id}`
+        });
+    }
+    return connection_1.default.query(`SELECT *
+    FROM events
+    WHERE events.event_id = $1 
+    `, [event_id])
+        .then((result) => {
+        if (result.rows.length === 0) {
+            return Promise.reject({
+                status: 404,
+                msg: `Event not found for event_id: ${event_id}`,
+            });
+        }
+        return result.rows[0];
+    });
+};
+exports.fetchEventById = fetchEventById;

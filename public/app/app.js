@@ -14,4 +14,12 @@ app.get('/', (req, res) => {
 });
 app.get('/api/events', events_controllers_1.getEvents);
 app.get('/api/events/filtered', events_controllers_1.getEventsByFilter);
+app.get('/api/events/:event_id', events_controllers_1.getEventById);
+app.use((err, req, res, next) => {
+    if (err.status && err.msg) {
+        res.status(err.status).send({ msg: err.msg });
+    }
+    else
+        next(err);
+});
 exports.default = app;
