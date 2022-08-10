@@ -207,6 +207,45 @@ describe("ERORR HANDLING", () => {
   });
 });
 
+describe("#7 POST NEW EVENT", () => {
+  test.only("status: 201, posts a new event and responds with posted event", () => {
+    const newEvent = {
+      firebase_id: "1a",
+      category: "football",
+      date: "25/08/2022",
+      time: "20:00",
+      duration: 1,
+      gender: "male",
+      skills_level: 2,
+      location: "M8 0AE",
+      needed_players: 2,
+      age_group: "18-30",
+      cost: 5,
+    };
+    return request(app)
+      .post("/api/events")
+      .send(newEvent)
+      .expect(201)
+      .then(({ body }) => {
+        expect(body).toEqual({
+          event_id: expect.any(Number),
+          firebase_id: expect.any(String),
+          category: expect.any(String),
+          date: expect.any(String),
+          time: expect.any(String),
+          duration: expect.any(Number),
+          gender: expect.any(String),
+          skills_level: expect.any(String),
+          location: expect.any(String),
+          needed_players: expect.any(Number),
+          age_group: expect.any(String),
+          cost: expect.any(Number),
+
+        });
+      });
+  });
+});
+
 describe.only("09 POST - api/users", () => {
   test("201 - Posts user with correct info", () => {
     const newUser = {
@@ -239,7 +278,7 @@ describe.only("09 POST - api/users", () => {
           skills_level: "fun",
           rating: 25,
           event_id: 21,
-        });
+                 });
       });
   });
 });

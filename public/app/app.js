@@ -13,7 +13,10 @@ app.use(express_1.default.json());
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+
 app.get("/api/events", events_controllers_1.getEvents);
 app.get("/api/events/filtered", events_controllers_1.getEventsByFilter);
 app.post("/api/users/", users_controllers_1.postUser);
+app.post('/api/events', events_controllers_1.postEvent);
+
 exports.default = app;

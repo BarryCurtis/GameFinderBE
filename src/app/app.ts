@@ -5,7 +5,15 @@ import {
   getEventsByFilter,
 } from "../controllers/events-controllers";
 
+
 import { postUser } from "../controllers/users-controllers";
+
+import express from 'express';
+import cors from 'cors';
+import {getEvents, getEventsByFilter, postEvent} from '../controllers/events-controllers'
+const app = express();
+
+
 
 const app = express();
 
@@ -20,4 +28,5 @@ app.get("/api/events/filtered", getEventsByFilter);
 
 app.post("/api/users/", postUser);
 
-export default app;
+app.post('/api/events', postEvent)
+export default app; 
