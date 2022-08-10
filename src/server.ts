@@ -1,5 +1,5 @@
 import app from './app'
-const port = 5000;
-app.listen(port, () => {
-    return console.log(`Express is listening at http://localhost:${port}`);
+const { PORT = 9090 } = process.env;
+app.listen(PORT, () => {
+    return console.log(`Express is listening at http://localhost:${PORT}`);
   });
