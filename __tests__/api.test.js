@@ -181,7 +181,6 @@ describe("app", () => {
           .get(`/api/events/${event_id}`)
           .expect(200)
           .then(({ body: { event } }) => {
-            console.log(event, "<<<<<<");
             expect(event).toEqual({
               event_id: event_id,
               firebase_id: "1a",
@@ -240,7 +239,7 @@ describe("ERORR HANDLING", () => {
           expect(msg).toBe("Invalid event ID notAnId");
         });
     });
-    test.only("status:404, respond with an error message when passed a valid ID number that is not found", () => {
+    test("status:404, respond with an error message when passed a valid ID number that is not found", () => {
       return request(app)
         .get("/api/events/9999")
         .expect(404)
