@@ -1,7 +1,7 @@
 
 import express from 'express';
 import cors from 'cors';
-import {getEvents, getEventsByFilter} from '../public/controllers/events-controllers'
+import {getEvents, getEventsByFilter} from '../controllers/events-controllers'
 const app = express();
 
 
