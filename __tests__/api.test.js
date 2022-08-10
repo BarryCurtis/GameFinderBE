@@ -1,14 +1,17 @@
-const app = require("../public/app");
+const application = require("../public/app");
+const app = application.default;
 const db = require("../public/db/connection");
 const seed = require("../public/db/seed");
 const request = require("supertest");
 const testData = require("../public/db/data/index");
 
 beforeEach(() => {
-  return seed.default(testData);
+  return seed.default(testData).then(() => {});
 });
 
-afterAll(() => db.end());
+afterAll(() => {
+  db.end();
+});
 
 describe("app", () => {
   describe("GET api/events", () => {
@@ -111,7 +114,7 @@ describe("app", () => {
       });
       test("returns all events where gender is equal to male as an array of objects", () => {
         return request(app)
-          .get("/api/events")
+          .get("/api/events?gender=male")
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
@@ -133,9 +136,9 @@ describe("app", () => {
             });
           });
       });
-      test("returns all events where age group is equal to expect.any(Number)8-30 as an array of objects", () => {
+      test("returns all events where age group is equal to 18-30 as an array of objects", () => {
         return request(app)
-          .get("/api/events")
+          .get("/api/events?age_group=18-30")
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
@@ -151,7 +154,7 @@ describe("app", () => {
                 skills_level: expect.any(String),
                 location: expect.any(String),
                 needed_players: expect.any(Number),
-                age_group: "expect.any(Number)8-30",
+                age_group: "18-30",
                 cost: expect.any(Number),
               });
             });
@@ -172,3 +175,6 @@ describe("app", () => {
     });
   });
 });
+
+
+

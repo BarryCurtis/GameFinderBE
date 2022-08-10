@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import {getEvents} from '../public/controllers/events-controllers'
 const app = express();
-const port = 3000;
+
 
 
 app.use(cors());
@@ -15,9 +15,5 @@ app.get('/', (req, res) => {
 
 app.get('/api/events', getEvents)
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
-});
 
-exports["default"] = app; 
-module.exports = exports["default"];
+export default app; 
