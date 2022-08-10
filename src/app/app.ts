@@ -1,20 +1,13 @@
 import express from "express";
 import cors from "cors";
-import {
-  getEvents,
-  getEventsByFilter,
-} from "../controllers/events-controllers";
-
 
 import { postUser } from "../controllers/users-controllers";
 
-import express from 'express';
-import cors from 'cors';
-import {getEvents, getEventsByFilter, postEvent} from '../controllers/events-controllers'
-const app = express();
-
-
-
+import {
+  getEvents,
+  getEventsByFilter,
+  postEvent,
+} from "../controllers/events-controllers";
 const app = express();
 
 app.use(cors());
@@ -28,5 +21,5 @@ app.get("/api/events/filtered", getEventsByFilter);
 
 app.post("/api/users/", postUser);
 
-app.post('/api/events', postEvent)
-export default app; 
+app.post("/api/events", postEvent);
+export default app;
