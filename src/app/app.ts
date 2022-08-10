@@ -1,7 +1,7 @@
 
 import express from 'express';
 import cors from 'cors';
-import {getEvents, getEventsByFilter} from '../controllers/events-controllers'
+import {getEvents, getEventsByFilter, postEvent} from '../controllers/events-controllers'
 const app = express();
 
 
@@ -14,6 +14,5 @@ app.get('/', (req, res) => {
 
 app.get('/api/events', getEvents)
 app.get('/api/events/filtered', getEventsByFilter)
-
-
+app.post('/api/events', postEvent)
 export default app; 
