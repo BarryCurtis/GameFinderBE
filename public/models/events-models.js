@@ -11,36 +11,17 @@ const fetchEvents = () => {
     });
 };
 exports.fetchEvents = fetchEvents;
-const fetchEventsByFilter = (sort_by = "time", order = "DESC", filter) => {
-    const event_columns = [
-        "event_id",
-        "firebase_id",
-        "category",
-        "date",
-        "time",
-        "duration",
-        "gender",
-        "skills_level",
-        "location",
-        "needed_players",
-        "age_group",
-        "cost",
-    ];
-    const filter_columns = ["gender", "category", "age_group"];
-    if (!event_columns.includes(sort_by)) {
-        return Promise.reject({ status: 400, msg: "Sort by query invalid" });
-    }
-    if (!["ASC", "DESC", "asc", "desc"].includes(order)) {
-        return Promise.reject({ status: 400, msg: "Order by query invalid" });
-    }
-    let queryStr = "";
-    if (!filter) {
-        queryStr.concat(sort_by, order);
-    }
-    else {
-        queryStr.concat(sort_by, order, filter);
-    }
-    return connection_1.default.query(`SELECT * FROM event`).then((result) => {
+
+const fetchEventsByFilter = (sort_by = "time", order = "ASC", sport = "football", gender = "male", age_group = "18-30") => {
+    const selected_sort = ["ASC", "DESC", "asc", "desc"];
+    const selected_sport = ["football", "netball", "squash"];
+    const selected_gender = ["male", "female", "mixed"];
+    const selected_age_group = ["18-30", "30-50", "50+"];
+    let queryStr = `SELECT events.* FROM events WHERE category = $1
+ AND gender = $2 AND age_group = $3
+ ORDER BY ${sort_by} ${order}`;
+    return connection_1.default.query(`${queryStr}`, [sport, gender, age_group]).then((result) => {
+
         return result.rows;
     });
 };
