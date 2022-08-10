@@ -208,7 +208,7 @@ describe("ERORR HANDLING", () => {
 });
 
 describe("#7 POST NEW EVENT", () => {
-  test.only("status: 201, posts a new event and responds with posted event", () => {
+  test("status: 201, posts a new event and responds with posted event", () => {
     const newEvent = {
       firebase_id: "1a",
       category: "football",
@@ -240,13 +240,12 @@ describe("#7 POST NEW EVENT", () => {
           needed_players: expect.any(Number),
           age_group: expect.any(String),
           cost: expect.any(Number),
-
         });
       });
   });
 });
 
-describe.only("09 POST - api/users", () => {
+describe("09 POST - api/users", () => {
   test("201 - Posts user with correct info", () => {
     const newUser = {
       firebase_id: "21a",
@@ -278,7 +277,7 @@ describe.only("09 POST - api/users", () => {
           skills_level: "fun",
           rating: 25,
           event_id: 21,
-                 });
+        });
       });
   });
 });
