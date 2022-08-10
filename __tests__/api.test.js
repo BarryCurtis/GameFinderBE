@@ -1,4 +1,4 @@
-const application = require("../public/app");
+const application = require("../public/app/app");
 const app = application.default;
 const db = require("../public/db/connection");
 const seed = require("../public/db/seed");
@@ -15,7 +15,7 @@ afterAll(() => {
 
 describe("app", () => {
   describe("GET api/events", () => {
-    test("status: 200, responds with all events as an array of events objects", () => {
+    test.only("status: 200, responds with all events as an array of events objects", () => {
       return request(app)
         .get("/api/events")
         .expect(200)
