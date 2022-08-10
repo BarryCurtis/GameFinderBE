@@ -106,7 +106,7 @@ export const users: User[] = [
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
     skill_level: "fun",
-    rating: 1,
+    rating: 5,
     event_id: 1,
   },
   {
