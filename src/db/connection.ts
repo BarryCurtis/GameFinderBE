@@ -7,4 +7,10 @@ dotenv.config({
     path: `${__dirname}/../../.env`,
   });
 
-export = new Pool()
+  const config = {
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      }
+export = new Pool(config)
