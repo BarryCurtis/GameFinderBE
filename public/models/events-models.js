@@ -32,9 +32,6 @@ const addEvent = (firebase_id, category, date, time, duration, gender, skills_le
         skills_level, location, needed_players, age_group, cost])
         .then(({ rows }) => {
         return rows[0];
-    })
-        .catch((err) => {
-        next(err);
     });
 };
 exports.addEvent = addEvent;

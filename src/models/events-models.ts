@@ -33,12 +33,6 @@ export const addEvent = (firebase_id, category, date, time, duration, gender, sk
     .then(({rows}) => {
     return rows[0];
     })
-    .catch((err) =>{
-        next(err);   
-    })
-}
-    
-
 }
 
 export const fetchEventById = (event_id) => {
