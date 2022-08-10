@@ -1,14 +1,17 @@
-const app = require("../public/app");
+const application = require("../public/app");
+const app = application.default;
 const db = require("../public/db/connection");
 const seed = require("../public/db/seed");
 const request = require("supertest");
 const testData = require("../public/db/data/index");
 
 beforeEach(() => {
-  return seed.default(testData);
+  return seed.default(testData).then(() => {});
 });
 
-afterAll(() => db.end());
+afterAll(() => {
+  db.end();
+});
 
 describe("app", () => {
   describe("GET api/events", () => {
@@ -111,7 +114,7 @@ describe("app", () => {
       });
       test("returns all events where gender is equal to male as an array of objects", () => {
         return request(app)
-          .get("/api/events")
+          .get("/api/events?gender=male")
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
@@ -133,9 +136,9 @@ describe("app", () => {
             });
           });
       });
-      test("returns all events where age group is equal to expect.any(Number)8-30 as an array of objects", () => {
+      test("returns all events where age group is equal to 18-30 as an array of objects", () => {
         return request(app)
-          .get("/api/events")
+          .get("/api/events?age_group=18-30")
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
@@ -151,7 +154,7 @@ describe("app", () => {
                 skills_level: expect.any(String),
                 location: expect.any(String),
                 needed_players: expect.any(Number),
-                age_group: "expect.any(Number)8-30",
+                age_group: "18-30",
                 cost: expect.any(Number),
               });
             });
@@ -162,11 +165,42 @@ describe("app", () => {
     describe("GET /api/events?sortby", () => {
       test("returns all events sorted by time in ASC order", () => {
         return request(app)
-          .get("/api/events?sortby=time&order=ASC")
+          .get("/api/events?sort_by=time&order=ASC")
           .expect(200)
           .then(({ body: { events } }) => {
             expect(events.length).not.toBe(0);
             expect(events).toBeSortedBy("time");
+          });
+      });
+    });
+  });
+});
+
+describe("ERORR HANDLING", () => {
+  describe("invalid path", () => {
+    test("should return 404 no such route", () => {
+      return request(app)
+        .get("/api/cats")
+        .expect(404)
+        .then(({ body: { msg } }) => {
+          expect(msg).toBe("404 no such route");
+        });
+    });
+    describe("GET /api/events", () => {
+      test("status:400 bad request when passed invalid sort_by", () => {
+        return request(app)
+          .get("/api/events?sort_by=banana")
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("Sort by query invalid");
+          });
+      });
+      test("status:400 bad request when passed invalid order by", () => {
+        return request(app)
+          .get("/api/events?order=banana")
+          .expect(400)
+          .then(({ body: { msg } }) => {
+            expect(msg).toBe("Order by query invalid");
           });
       });
     });
