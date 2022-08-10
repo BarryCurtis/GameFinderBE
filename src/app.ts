@@ -1,7 +1,7 @@
 
 import express from 'express';
 import cors from 'cors';
-import {getEvents} from '../public/controllers/events-controllers'
+import {getEvents, getEventsByFilter} from '../public/controllers/events-controllers'
 const app = express();
 const port = 3000;
 
@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/events', getEvents)
+app.get('/api/events/filtered', getEventsByFilter)
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
