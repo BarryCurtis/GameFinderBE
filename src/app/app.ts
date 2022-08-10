@@ -3,7 +3,6 @@ import cors from "cors";
 import { postUser } from "../controllers/users-controllers";
 import {
   getEvents,
-  getEventsByFilter,
   getEventById,
   postEvent,
 } from "../controllers/events-controllers";
@@ -17,7 +16,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 app.get('/api/events', getEvents);
-app.get('/api/events/filtered', getEventsByFilter);
 app.get('/api/events/:event_id', getEventById);
 app.post("/api/users/", postUser);
 app.post("/api/events", postEvent);
