@@ -1,4 +1,4 @@
-import * as data from "./data/index";
+import data from "./data/index";
 import seed from "./seed";
 import db from "./connection";
 

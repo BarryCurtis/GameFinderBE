@@ -7,4 +7,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config({
     path: `${__dirname}/../../.env`,
 });
-module.exports = new pg_1.Pool();
+const config = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    },
+};
+module.exports = new pg_1.Pool(config);
