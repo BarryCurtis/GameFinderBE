@@ -25,13 +25,16 @@ export const fetchEventsByFilter = (sort_by = "time", order = "ASC", sport = "fo
 export const addEvent = (firebase_id, category, date, time, duration, gender, skills_level, location, needed_players, age_group, cost) => {
     return db.query(
         `INSERT INTO events
-        () VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
+        (firebase_id, category, date, time, duration, gender,
+        skills_level, location, needed_players, age_group, cost) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
         RETURNING *;`,
         [firebase_id, category, date, time, duration, gender,
-        skills_level, location, needed_players, age_group, cost]
-    )
+        skills_level, location, needed_players, age_group, cost])
     .then(({rows}) => {
-        return rows[0];
+    return rows[0];
+    })
+    .catch((err) =>{
+        next(err);   
     })
 }
     

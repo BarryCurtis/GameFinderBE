@@ -24,10 +24,10 @@ export const getEventsByFilter = (req:Request, res:Response, next:NextFunction) 
 export const postEvent = (req:Request, res:Response, next:NextFunction) => {
     const {firebase_id, category, date, time, duration, gender,
         skills_level, location, needed_players, age_group, cost} = req.body;
-    return addEvent(firebase_id, category, date, time, duration, gender,
+    addEvent(firebase_id, category, date, time, duration, gender,
         skills_level, location, needed_players, age_group, cost)
-    .then((events) => {
-        res.status(200).send({events: events});
+    .then(events => {
+        res.status(201).send(events);
     })
     .catch((err)=>{
         next(err);

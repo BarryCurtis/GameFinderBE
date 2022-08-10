@@ -15,5 +15,4 @@ app.get('/', (req, res) => {
 app.get('/api/events', getEvents)
 app.get('/api/events/filtered', getEventsByFilter)
 app.post('/api/events', postEvent)
-
 export default app; 
