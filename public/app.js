@@ -13,4 +13,5 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 app.get('/api/events', events_controllers_1.getEvents);
+app.get('/api/events/filtered', events_controllers_1.getEventsByFilter);
 exports.default = app;

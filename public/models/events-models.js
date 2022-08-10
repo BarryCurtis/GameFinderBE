@@ -11,7 +11,6 @@ const fetchEvents = () => {
     });
 };
 exports.fetchEvents = fetchEvents;
-
 const fetchEventsByFilter = (sort_by = "time", order = "ASC", sport = "football", gender = "male", age_group = "18-30") => {
     const selected_sort = ["ASC", "DESC", "asc", "desc"];
     const selected_sport = ["football", "netball", "squash"];
@@ -21,7 +20,6 @@ const fetchEventsByFilter = (sort_by = "time", order = "ASC", sport = "football"
  AND gender = $2 AND age_group = $3
  ORDER BY ${sort_by} ${order}`;
     return connection_1.default.query(`${queryStr}`, [sport, gender, age_group]).then((result) => {
-
         return result.rows;
     });
 };
