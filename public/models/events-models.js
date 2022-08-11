@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchEventById = exports.addEvent = exports.fetchEvents = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const fetchEvents = (query) => {
-    const validQeries = ["football", "netball", "squash", "male", "female", "mixed", "18-30", "30-50", "50+"];
+    // const validQeries = ["football", "netball", "squash","male", "female", "mixed","18-30", "30-50", "50+", "ASC","DESC","asc","desc"]
+    const validOrders = ["ASC", "DESC", "asc", "desc"];
     let qeuryStr = "SELECT * FROM events WHERE 1 = 1";
     if (query) {
         if (Object.keys(query).includes("category")) {
@@ -19,7 +20,7 @@ const fetchEvents = (query) => {
             qeuryStr += ` AND gender = '${query.gender}'`;
         }
     }
-    if (query.order) {
+    if (query.order && validOrders.includes(query.order)) {
         qeuryStr += ` ORDER BY time ${query.order}`;
     }
     else if (!query.order) {
