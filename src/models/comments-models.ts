@@ -19,3 +19,22 @@ export const fetchCommentsBYEventsId = (event_id) => {
       return reslut.rows;
     });
 };
+
+export const addCommentBYEventsId = (
+  event_id,
+  firebase_id,
+  comment_body,
+  comment_time
+) => {
+    console.log(event_id)
+  return db
+    .query(
+      `INSERT INTO comments
+        (event_id, firebase_id, comment_body, comment_time) VALUES ($1, $2, $3, $4) 
+        RETURNING *`,
+      [event_id, firebase_id, comment_body, comment_time]
+    )
+    .then((result) => {
+      return result.rows[0];
+    });
+};
