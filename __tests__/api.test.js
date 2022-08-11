@@ -5,7 +5,7 @@ const seed = require("../public/db/seed");
 const request = require("supertest");
 const testData = require("../public/db/data/index");
 
-beforeEach(() => {
+beforeAll(() => {
   return seed.default(testData).then(() => {});
 });
 
