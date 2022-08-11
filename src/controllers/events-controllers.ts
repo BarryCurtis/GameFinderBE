@@ -1,5 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { fetchEvents, fetchEventById, addEvent, updateEvent } from "../models/events-models";
+import {
+  fetchEvents,
+  fetchEventById,
+  addEvent,
+  updateEvent,
+} from "../models/events-models";
 
 export const getEvents = (req: Request, res: Response, next: NextFunction) => {
   const query = req.query;
@@ -41,7 +46,7 @@ export const postEvent = (req: Request, res: Response, next: NextFunction) => {
     age_group,
     cost,
   } = req.body;
-  
+
   addEvent(
     firebase_id,
     category,
@@ -62,13 +67,9 @@ export const postEvent = (req: Request, res: Response, next: NextFunction) => {
       next(err);
     });
 };
- export const patchEvent  = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-    const updatedEvent = req.body;
-    console.log(updatedEvent);
+export const patchEvent = (req: Request, res: Response, next: NextFunction) => {
+  const updatedEvent = req.body;
+
   updateEvent(updatedEvent)
     .then((event) => {
       res.status(200).send({ event });

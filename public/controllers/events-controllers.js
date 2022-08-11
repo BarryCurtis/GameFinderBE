@@ -37,7 +37,6 @@ const postEvent = (req, res, next) => {
 exports.postEvent = postEvent;
 const patchEvent = (req, res, next) => {
     const updatedEvent = req.body;
-    console.log(updatedEvent);
     (0, events_models_1.updateEvent)(updatedEvent)
         .then((event) => {
         res.status(200).send({ event });
