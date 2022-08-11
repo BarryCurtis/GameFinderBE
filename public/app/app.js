@@ -15,7 +15,8 @@ app.get("/", (req, res) => {
 });
 app.get('/api/events', events_controllers_1.getEvents);
 app.get('/api/events/:event_id', events_controllers_1.getEventById);
-app.post("/api/users/", users_controllers_1.postUser);
+app.get("/api/users/:user_id", users_controllers_1.getUserById);
+app.post("/api/users", users_controllers_1.postUser);
 app.post("/api/events", events_controllers_1.postEvent);
 app.use("*", (req, res) => {
     res.status(404).send({ msg: "404 no such route" });

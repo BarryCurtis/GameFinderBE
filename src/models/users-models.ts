@@ -1,5 +1,28 @@
 import db from "../db/connection";
 
+
+export const fetchUserById = (firebase_id) => {
+
+return db
+.query(
+  `SELECT *
+  FROM users
+  WHERE users.firebase_id = $1`,
+  [firebase_id]
+)
+.then((result)=> {
+  if (result.rows.length === 0) {
+    return Promise.reject({
+      status: 404,
+      msg: `User not found for user_id: ${firebase_id}`,
+    });
+  }
+  
+  return result.rows[0];
+})
+}
+
+
 export const postNewUser = (body) => {
   if (
     !body.firebase_id ||

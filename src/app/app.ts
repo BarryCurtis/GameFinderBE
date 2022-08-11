@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { postUser } from "../controllers/users-controllers";
+import { getUserById, postUser } from "../controllers/users-controllers";
 import {
   getEvents,
   getEventById,
@@ -17,7 +17,8 @@ app.get("/", (req, res) => {
 });
 app.get('/api/events', getEvents);
 app.get('/api/events/:event_id', getEventById);
-app.post("/api/users/", postUser);
+app.get("/api/users/:user_id", getUserById)
+app.post("/api/users", postUser);
 app.post("/api/events", postEvent);
 
 app.use("*", (req, res) => {
