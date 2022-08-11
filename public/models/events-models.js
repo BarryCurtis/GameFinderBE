@@ -7,7 +7,23 @@ exports.updateEvent = exports.fetchEventById = exports.addEvent = exports.fetchE
 const connection_1 = __importDefault(require("../db/connection"));
 const validateQueries_1 = require("../utiles/validateQueries");
 const fetchEvents = (query) => {
-
+    const validQeries = [
+        "football",
+        "netball",
+        "squash",
+        "male",
+        "female",
+        "mixed",
+        "18-30",
+        "30-50",
+        "50+",
+        "ASC",
+        "DESC",
+        "asc",
+        "desc",
+    ];
+    let queryStr = "SELECT * FROM events WHERE 1 = 1";
+    if (query && (0, validateQueries_1.validateQueries)(query, validQeries)) {
         if (Object.keys(query).includes("category")) {
             queryStr += ` AND category = '${query.category}'`;
         }
@@ -17,7 +33,9 @@ const fetchEvents = (query) => {
         if (Object.keys(query).includes("gender")) {
             queryStr += ` AND gender = '${query.gender}'`;
         }
-
+    }
+    if (query.order && validOrders.includes(query.order)) {
+        queryStr += ` ORDER BY time ${query.order}`;
     }
     else if (!query.order) {
         queryStr += ` ORDER BY time ASC`;

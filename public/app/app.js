@@ -14,14 +14,15 @@ app.use(express_1.default.json());
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
-
 app.get("/api/events", events_controllers_1.getEvents);
 app.get("/api/events/:event_id", events_controllers_1.getEventById);
+app.get("/api/users/:user_id", users_controllers_1.getUserById);
+app.get("/api/events/:event_id/comments", comments_controllers_1.getCommentsByEventsId);
 app.post("/api/users", users_controllers_1.postUser);
-app.patch("/api/users", users_controllers_1.patchUser);
-
 app.post("/api/events", events_controllers_1.postEvent);
-
+app.post("/api/events/:event_id/comments", comments_controllers_1.postCommentByEventId);
+app.patch("/api/events/:event_id", events_controllers_1.patchEvent);
+app.patch("/api/users", users_controllers_1.patchUser);
 app.use("*", (req, res) => {
     res.status(404).send({ msg: "404 no such route" });
 });

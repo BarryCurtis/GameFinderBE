@@ -27,7 +27,7 @@ describe("GET /api/users/:user_id", () => {
           gender: "male",
           profile_icon:
             "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-          skills_level: "fun",
+          skills_level: "1",
           user_id: 1,
           rating: 5,
           event_id: 1,
