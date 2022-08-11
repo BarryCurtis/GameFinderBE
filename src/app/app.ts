@@ -6,6 +6,7 @@ import {
   getEventById,
   postEvent,
 } from "../controllers/events-controllers";
+import {getCommentsByEventsId,} from '../controllers/comments-controllers'
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.get('/api/events', getEvents);
 app.get('/api/events/:event_id', getEventById);
 app.post("/api/users/", postUser);
 app.post("/api/events", postEvent);
-
+app.get("/api/events/comments/:event_id", getCommentsByEventsId)
 app.use("*", (req, res) => {
   res.status(404).send({ msg: "404 no such route" });
 });
