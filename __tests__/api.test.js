@@ -280,7 +280,7 @@ describe("09 POST - api/users", () => {
       gender: "male",
       profile_icon:
         "http://3.bp.blogspot.com/-A1soAA90eNI/U8l74yyHMcI/AAAAAAAADsg/IJ6_ltfctgY/s1600/cover+Ronaldo+Brazil.jpg",
-      skills_level: "fun",
+      skills_level: 5,
       rating: 25,
       event_id: 21,
     };
@@ -291,17 +291,16 @@ describe("09 POST - api/users", () => {
       .expect(201)
       .then((result) => {
         expect(result.body.newuser).toEqual({
-          user_id: 21,
-          firebase_id: "21a",
-          name: "Andrew Sheffield",
-          username: "AndyS",
-          age: 38,
-          gender: "male",
-          profile_icon:
-            "http://3.bp.blogspot.com/-A1soAA90eNI/U8l74yyHMcI/AAAAAAAADsg/IJ6_ltfctgY/s1600/cover+Ronaldo+Brazil.jpg",
-          skills_level: "fun",
-          rating: 25,
-          event_id: 21,
+          user_id: expect.any(Number),
+          firebase_id: expect.any(String),
+          name: expect.any(String),
+          username: expect.any(String),
+          age: expect.any(Number),
+          gender: expect.any(String),
+          profile_icon: expect.any(String),
+          skills_level: expect.any(String),
+          rating: expect.any(Number),
+          event_id: expect.any(Number),
         });
       });
   });

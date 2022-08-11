@@ -21,7 +21,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "1",
     rating: 5,
     event_id: 1,
   },
@@ -33,7 +33,7 @@ export const users: User[] = [
     gender: "female",
     profile_icon:
       "https://thumbs.dreamstime.com/b/smiling-girl-happy-looking-high-39930075.jpg",
-    skills_level: "fun",
+    skills_level: "2",
     rating: 4,
     event_id: 1,
   },
@@ -45,7 +45,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2EpW4XH9krenWzjk3krH6urJZGrfWbi3XW-NEkwavgW3ehW4nMq65PvDGUyNMtKwoVo8&usqp=CAU",
-    skills_level: "serious",
+    skills_level: "3",
     rating: 1,
     event_id: 1,
   },
@@ -57,7 +57,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "4",
     rating: 8,
     event_id: 1,
   },
@@ -69,7 +69,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "5",
     rating: 0,
     event_id: 1,
   },
@@ -81,7 +81,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "5",
     rating: 5,
     event_id: 1,
   },
@@ -93,7 +93,7 @@ export const users: User[] = [
     gender: "female",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "4",
     rating: 3,
     event_id: 1,
   },
@@ -105,7 +105,7 @@ export const users: User[] = [
     gender: "female",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "3",
     rating: 5,
     event_id: 1,
   },
@@ -117,7 +117,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "2",
     rating: 11,
     event_id: 1,
   },
@@ -129,7 +129,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "3",
     rating: 6,
     event_id: 1,
   },
@@ -141,7 +141,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "5",
     rating: 15,
     event_id: 1,
   },
@@ -153,7 +153,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "4",
     rating: 10,
     event_id: 1,
   },
@@ -165,7 +165,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "5",
     rating: 12,
     event_id: 1,
   },
@@ -177,7 +177,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "3",
     rating: 2,
     event_id: 1,
   },
@@ -189,7 +189,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "2",
     rating: 6,
     event_id: 1,
   },
@@ -201,7 +201,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "1",
     rating: 15,
     event_id: 1,
   },
@@ -213,7 +213,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "4",
     rating: 8,
     event_id: 1,
   },
@@ -225,7 +225,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "3",
     rating: 6,
     event_id: 1,
   },
@@ -237,7 +237,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "2",
     rating: 4,
     event_id: 1,
   },
@@ -249,7 +249,7 @@ export const users: User[] = [
     gender: "male",
     profile_icon:
       "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
-    skills_level: "fun",
+    skills_level: "4",
     rating: 1,
     event_id: 1,
   },
