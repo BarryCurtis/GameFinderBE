@@ -1,10 +1,11 @@
-import express from "express";
+import express, { application } from "express";
 import cors from "cors";
 import { postUser } from "../controllers/users-controllers";
 import {
   getEvents,
   getEventById,
   postEvent,
+  patchEvent
 } from "../controllers/events-controllers";
 
 const app = express();
@@ -19,6 +20,7 @@ app.get('/api/events', getEvents);
 app.get('/api/events/:event_id', getEventById);
 app.post("/api/users/", postUser);
 app.post("/api/events", postEvent);
+app.patch("/api/events/:event_id", patchEvent);
 
 app.use("*", (req, res) => {
   res.status(404).send({ msg: "404 no such route" });

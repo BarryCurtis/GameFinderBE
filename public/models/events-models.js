@@ -3,35 +3,62 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchEventById = exports.addEvent = exports.fetchEvents = void 0;
+exports.updateEvent = exports.fetchEventById = exports.addEvent = exports.fetchEvents = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const fetchEvents = (query) => {
     // const validQeries = ["football", "netball", "squash","male", "female", "mixed","18-30", "30-50", "50+", "ASC","DESC","asc","desc"]
     const validOrders = ["ASC", "DESC", "asc", "desc"];
-    let qeuryStr = "SELECT * FROM events WHERE 1 = 1";
+    let queryStr = "SELECT * FROM events WHERE 1 = 1";
     if (query) {
         if (Object.keys(query).includes("category")) {
-            qeuryStr += ` AND category = '${query.category}'`;
+            queryStr += ` AND category = '${query.category}'`;
         }
         if (Object.keys(query).includes("age_group")) {
-            qeuryStr += ` AND age_group = '${query.age_group}'`;
+            queryStr += ` AND age_group = '${query.age_group}'`;
         }
         if (Object.keys(query).includes("gender")) {
-            qeuryStr += ` AND gender = '${query.gender}'`;
+            queryStr += ` AND gender = '${query.gender}'`;
         }
     }
     if (query.order && validOrders.includes(query.order)) {
-        qeuryStr += ` ORDER BY time ${query.order}`;
+        queryStr += ` ORDER BY time ${query.order}`;
     }
     else if (!query.order) {
-        qeuryStr += ` ORDER BY time ASC`;
+        queryStr += ` ORDER BY time ASC`;
     }
-    return connection_1.default.query(qeuryStr).then((result) => {
+    return connection_1.default.query(queryStr).then((result) => {
         return result.rows;
     });
 };
 exports.fetchEvents = fetchEvents;
 const addEvent = (firebase_id, category, date, time, duration, gender, skills_level, location, needed_players, age_group, cost) => {
+    if (!firebase_id ||
+        !category ||
+        !date ||
+        !time ||
+        !duration ||
+        !gender ||
+        !skills_level ||
+        !location ||
+        !needed_players ||
+        !age_group ||
+        !cost) {
+        return Promise.reject({ status: 400, msg: `Invalid object passed, please use format:
+        {
+  firebase_id: string,
+  category: string,
+  date: string,
+  time: string,
+  duration: number,
+  gender: string,
+  skills_level: number,
+  location: string,
+  needed_players: number,
+  age_group: string,
+  cost: number
+}
+` });
+    }
     return connection_1.default
         .query(`INSERT INTO events
         (firebase_id, category, date, time, duration, gender,
@@ -77,3 +104,56 @@ const fetchEventById = (event_id) => {
     });
 };
 exports.fetchEventById = fetchEventById;
+const updateEvent = (updatedEvent) => {
+    console.log(updatedEvent, "in models");
+    if (!updatedEvent.firebase_id ||
+        !updatedEvent.category ||
+        !updatedEvent.date ||
+        !updatedEvent.time ||
+        !updatedEvent.duration ||
+        !updatedEvent.gender ||
+        !updatedEvent.skills_level ||
+        !updatedEvent.location ||
+        !updatedEvent.needed_players ||
+        !updatedEvent.age_group ||
+        !updatedEvent.cost) {
+        return Promise.reject({ status: 400, msg: `Invalid object passed, please use format:
+        {
+  firebase_id: string,
+  category: string,
+  date: string,
+  time: string,
+  duration: number,
+  gender: string,
+  skills_level: number,
+  location: string,
+  needed_players: number,
+  age_group: string,
+  cost: number
+}
+` });
+    }
+    return connection_1.default
+        .query(`UPDATE events 
+      SET category = $1, date = $2, time = $3, duration = $4, gender = $5, skills_level = $6, location = $7, needed_players = $8, age_group = $9, cost = $10
+    WHERE event_id = $11 RETURNING *`, [
+        updatedEvent.category,
+        updatedEvent.date,
+        updatedEvent.time,
+        updatedEvent.duration,
+        updatedEvent.gender,
+        updatedEvent.skills_level,
+        updatedEvent.location,
+        updatedEvent.needed_players,
+        updatedEvent.age_group,
+        updatedEvent.cost,
+        updatedEvent.event_id
+    ])
+        .then((result) => {
+        if (result.rows.length === 0) {
+            return Promise.reject({ status: 404, msg: "Event doesn't exist, please try again" });
+        }
+        return result.rows[0];
+    });
+};
+exports.updateEvent = updateEvent;
