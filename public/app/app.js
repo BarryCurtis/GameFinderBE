@@ -7,17 +7,22 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const users_controllers_1 = require("../controllers/users-controllers");
 const events_controllers_1 = require("../controllers/events-controllers");
+const comments_controllers_1 = require("../controllers/comments-controllers");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+
 app.get("/api/events", events_controllers_1.getEvents);
 app.get("/api/events/:event_id", events_controllers_1.getEventById);
 app.post("/api/users", users_controllers_1.postUser);
 app.patch("/api/users", users_controllers_1.patchUser);
+
 app.post("/api/events", events_controllers_1.postEvent);
+app.get("/api/events/:event_id/comments", comments_controllers_1.getCommentsByEventsId);
+app.post("/api/events/:event_id/comments", comments_controllers_1.postCommentByEventId);
 app.use("*", (req, res) => {
     res.status(404).send({ msg: "404 no such route" });
 });

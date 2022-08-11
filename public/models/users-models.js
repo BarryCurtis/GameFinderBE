@@ -3,8 +3,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+
 exports.updateUser = exports.postNewUser = void 0;
+
+exports.postNewUser = exports.fetchUserById = void 0;
+
 const connection_1 = __importDefault(require("../db/connection"));
+const fetchUserById = (firebase_id) => {
+    return connection_1.default
+        .query(`SELECT *
+  FROM users
+  WHERE users.firebase_id = $1`, [firebase_id])
+        .then((result) => {
+        if (result.rows.length === 0) {
+            return Promise.reject({
+                status: 404,
+                msg: `User not found for user_id: ${firebase_id}`,
+            });
+        }
+        return result.rows[0];
+    });
+};
+exports.fetchUserById = fetchUserById;
 const postNewUser = (body) => {
     if (!body.firebase_id ||
         !body.name ||
