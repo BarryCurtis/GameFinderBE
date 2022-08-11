@@ -1,5 +1,5 @@
 import db from "../db/connection";
-
+import { checkExist } from "../utiles/checkExist";
 export const fetchCommentsBYEventsId = (event_id) => {
   if (isNaN(Number(event_id))) {
     return Promise.reject({
@@ -26,15 +26,23 @@ export const addCommentBYEventsId = (
   comment_body,
   comment_time
 ) => {
-    console.log(event_id)
-  return db
-    .query(
-      `INSERT INTO comments
+  console.log(event_id, firebase_id, comment_body, comment_time);
+  if (comment_body === "") {
+    return Promise.reject({
+      status: 400,
+      msg: `cannot post empty comment`,
+    });
+  }
+  return checkExist("events", "event_id", event_id).then(() => {
+    return db
+      .query(
+        `INSERT INTO comments
         (event_id, firebase_id, comment_body, comment_time) VALUES ($1, $2, $3, $4) 
         RETURNING *`,
-      [event_id, firebase_id, comment_body, comment_time]
-    )
-    .then((result) => {
-      return result.rows[0];
-    });
+        [event_id, firebase_id, comment_body, comment_time]
+      )
+      .then((result) => {
+        return result.rows[0];
+      });
+  });
 };

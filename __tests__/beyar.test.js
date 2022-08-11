@@ -32,7 +32,7 @@ describe("GET /api/events/:event_id/comments", () => {
   });
 });
 describe("POST /api/events/:event_id/comments", () => {
-  test.only("add comment by event id and return it", () => {
+  test("add comment by event id and return it", () => {
     return request(app)
       .post("/api/events/5/comments")
       .send({
@@ -70,6 +70,37 @@ describe("GET /api/events/comments/:event_id error handle", () => {
       .expect(400)
       .then(({ body: { msg } }) => {
         expect(msg).toBe("invalid event id banana");
+      });
+  });
+});
+
+describe("POST /api/events/comments/:event_id error handle", () => {
+  test("return 404 not found when passed un existed event_id", () => {
+    return request(app)
+      .post("/api/events/100/comments")
+      .send({
+        firebase_id: "5a",
+        event_id: 100,
+        comment_body: "is there any nearby car park for this event",
+        comment_time: "2022-10-16T13:23:00.000Z",
+      })
+      .expect(404)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("100 does not exist");
+      });
+  });
+  test("return 400 bad request when passed empty comment", () => {
+    return request(app)
+      .post("/api/events/100/comments")
+      .send({
+        firebase_id: "5a",
+        event_id: 1,
+        comment_body: "",
+        comment_time: "2022-10-16T13:23:00.000Z",
+      })
+      .expect(400)
+      .then(({ body: { msg } }) => {
+        expect(msg).toBe("cannot post empty comment");
       });
   });
 });
