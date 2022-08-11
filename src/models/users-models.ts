@@ -115,7 +115,7 @@ export const updateUser = (body) => {
       ]
     )
     .then((newUser) => {
-      console.log(newUser);
+    
 
       if (newUser.rowCount === 0) {
         return Promise.reject({

@@ -1,5 +1,5 @@
 import db from "../db/connection";
-import { validateQueries } from "../utiles/validateQueries";
+import { validateQueries } from "../utils/validateQueries";
 export const fetchEvents = (query) => {
   const validQeries = [
     "football",
@@ -136,7 +136,7 @@ export const fetchEventById = (event_id) => {
 };
 
 export const updateEvent = (updatedEvent) => {
-    console.log(updatedEvent, "in models");
+
      if (!updatedEvent.firebase_id ||
     !updatedEvent.category ||
     !updatedEvent.date ||

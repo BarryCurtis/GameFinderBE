@@ -1,5 +1,5 @@
 import db from "../db/connection";
-import { checkExist } from "../utiles/checkExist";
+import { checkExist } from "../utils/checkExist";
 export const fetchCommentsBYEventsId = (event_id) => {
   if (isNaN(Number(event_id))) {
     return Promise.reject({
@@ -9,14 +9,14 @@ export const fetchCommentsBYEventsId = (event_id) => {
   }
   return db
     .query("SELECT * FROM comments WHERE event_id = $1", [event_id])
-    .then((reslut) => {
-      if (!reslut.rowCount) {
+    .then((result) => {
+      if (!result.rowCount) {
         return Promise.reject({
           status: 404,
           msg: `event id ${event_id} does not exist`,
         });
       }
-      return reslut.rows;
+      return result.rows;
     });
 };
 
@@ -26,7 +26,7 @@ export const addCommentBYEventsId = (
   comment_body,
   comment_time
 ) => {
-  console.log(event_id, firebase_id, comment_body, comment_time);
+ 
   if (comment_body === "") {
     return Promise.reject({
       status: 400,

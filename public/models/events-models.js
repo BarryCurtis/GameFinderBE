@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEvent = exports.fetchEventById = exports.addEvent = exports.fetchEvents = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
-const validateQueries_1 = require("../utiles/validateQueries");
+const validateQueries_1 = require("../utils/validateQueries");
 const fetchEvents = (query) => {
     const validQeries = [
         "football",
@@ -119,7 +119,6 @@ const fetchEventById = (event_id) => {
 };
 exports.fetchEventById = fetchEventById;
 const updateEvent = (updatedEvent) => {
-    console.log(updatedEvent, "in models");
     if (!updatedEvent.firebase_id ||
         !updatedEvent.category ||
         !updatedEvent.date ||

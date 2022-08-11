@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addCommentBYEventsId = exports.fetchCommentsBYEventsId = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
-const checkExist_1 = require("../utiles/checkExist");
+const checkExist_1 = require("../utils/checkExist");
 const fetchCommentsBYEventsId = (event_id) => {
     if (isNaN(Number(event_id))) {
         return Promise.reject({
@@ -15,19 +15,18 @@ const fetchCommentsBYEventsId = (event_id) => {
     }
     return connection_1.default
         .query("SELECT * FROM comments WHERE event_id = $1", [event_id])
-        .then((reslut) => {
-        if (!reslut.rowCount) {
+        .then((result) => {
+        if (!result.rowCount) {
             return Promise.reject({
                 status: 404,
                 msg: `event id ${event_id} does not exist`,
             });
         }
-        return reslut.rows;
+        return result.rows;
     });
 };
 exports.fetchCommentsBYEventsId = fetchCommentsBYEventsId;
 const addCommentBYEventsId = (event_id, firebase_id, comment_body, comment_time) => {
-    console.log(event_id, firebase_id, comment_body, comment_time);
     if (comment_body === "") {
         return Promise.reject({
             status: 400,

@@ -102,7 +102,6 @@ const updateUser = (body) => {
         body.rating,
     ])
         .then((newUser) => {
-        console.log(newUser);
         if (newUser.rowCount === 0) {
             return Promise.reject({
                 status: 404,
