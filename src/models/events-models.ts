@@ -1,7 +1,7 @@
 import db from "../db/connection";
 import { validateQueries } from "../utils/validateQueries";
 export const fetchEvents = (query) => {
-  const validQeries = [
+  const validQueries = [
     "football",
     "netball",
     "squash",
@@ -19,7 +19,7 @@ export const fetchEvents = (query) => {
 
   let queryStr = "SELECT * FROM events WHERE 1 = 1";
 
-  if (query && validateQueries(query, validQeries)) {
+  if (query && validateQueries(query, validQueries)) {
     if (Object.keys(query).includes("category")) {
       queryStr += ` AND category = '${query.category}'`;
     }
