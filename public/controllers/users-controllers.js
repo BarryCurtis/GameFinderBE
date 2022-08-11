@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postUser = void 0;
+exports.patchUser = exports.postUser = void 0;
 const users_models_1 = require("../models/users-models");
 const postUser = (req, res, next) => {
     return (0, users_models_1.postNewUser)(req.body)
@@ -12,3 +12,13 @@ const postUser = (req, res, next) => {
     });
 };
 exports.postUser = postUser;
+const patchUser = (req, res, next) => {
+    return (0, users_models_1.updateUser)(req.body)
+        .then((user) => {
+        res.status(200).send({ newuser: user });
+    })
+        .catch((err) => {
+        next(err);
+    });
+};
+exports.patchUser = patchUser;
