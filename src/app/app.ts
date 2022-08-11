@@ -6,6 +6,7 @@ import {
   getEventById,
   postEvent,
 } from "../controllers/events-controllers";
+import { getCommentsByEventsId,postCommentByEventId } from "../controllers/comments-controllers";
 
 const app = express();
 
@@ -15,12 +16,15 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
 app.get('/api/events', getEvents);
 app.get('/api/events/:event_id', getEventById);
 app.get("/api/users/:user_id", getUserById)
 app.post("/api/users", postUser);
-app.post("/api/events", postEvent);
 
+app.post("/api/events", postEvent);
+app.get("/api/events/:event_id/comments", getCommentsByEventsId);
+app.post("/api/events/:event_id/comments",postCommentByEventId);
 app.use("*", (req, res) => {
   res.status(404).send({ msg: "404 no such route" });
 });
