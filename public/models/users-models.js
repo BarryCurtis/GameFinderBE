@@ -17,8 +17,7 @@ const postNewUser = (body) => {
         !body.event_id) {
         return Promise.reject({
             status: 400,
-            msg: `Invalid - input must be in form {
-        firebase_id: string,
+            msg: `Invalid - input must be in form {firebase_id: string,
         name: string,
         username: string,
         age: number,
@@ -26,8 +25,7 @@ const postNewUser = (body) => {
         profile_icon: string,
         skills_level: string,
         rating: number,
-        event_id: number,
-      }`,
+        event_id: number}`,
         });
     }
     return connection_1.default
