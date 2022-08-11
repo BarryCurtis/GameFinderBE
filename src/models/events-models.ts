@@ -1,7 +1,9 @@
 import db from "../db/connection";
 
 export const fetchEvents = (query) => {
-  const validQeries = ["football", "netball", "squash""male", "female", "mixed","18-30", "30-50", "50+"]
+  // const validQeries = ["football", "netball", "squash","male", "female", "mixed","18-30", "30-50", "50+", "ASC","DESC","asc","desc"]
+  const validOrders = ["ASC", "DESC", "asc", "desc"];
+
   let qeuryStr = "SELECT * FROM events WHERE 1 = 1";
 
   if (query) {
@@ -14,6 +16,11 @@ export const fetchEvents = (query) => {
     if (Object.keys(query).includes("gender")) {
       qeuryStr += ` AND gender = '${query.gender}'`;
     }
+  }
+  if (query.order && validOrders.includes(query.order)) {
+    qeuryStr += ` ORDER BY time ${query.order}`;
+  } else if (!query.order) {
+    qeuryStr += ` ORDER BY time ASC`;
   }
 
   return db.query(qeuryStr).then((result) => {

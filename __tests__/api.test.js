@@ -211,24 +211,6 @@ describe("ERORR HANDLING", () => {
           expect(msg).toBe("404 no such route");
         });
     });
-    describe("GET /api/events", () => {
-      test("status:400 bad request when passed invalid sort_by", () => {
-        return request(app)
-          .get("/api/events?sort_by=banana")
-          .expect(400)
-          .then(({ body: { msg } }) => {
-            expect(msg).toBe("Sort by query invalid");
-          });
-      });
-      test("status:400 bad request when passed invalid order by", () => {
-        return request(app)
-          .get("/api/events?order=banana")
-          .expect(400)
-          .then(({ body: { msg } }) => {
-            expect(msg).toBe("Order by query invalid");
-          });
-      });
-    });
   });
   describe("GET /api/events/:event_id", () => {
     test("status:400, responds with a bad request error message when passed a bad event ID", () => {
