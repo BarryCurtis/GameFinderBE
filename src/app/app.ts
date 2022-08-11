@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
-import { getUserById, postUser } from "../controllers/users-controllers";
+
+import { patchUser, postUser, getUserById } from "../controllers/users-controllers";
+
 import {
   getEvents,
   getEventById,
@@ -17,14 +19,17 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get('/api/events', getEvents);
-app.get('/api/events/:event_id', getEventById);
+app.get("/api/events", getEvents);
+app.get("/api/events/:event_id", getEventById);
 app.get("/api/users/:user_id", getUserById)
-app.post("/api/users", postUser);
-
-app.post("/api/events", postEvent);
 app.get("/api/events/:event_id/comments", getCommentsByEventsId);
+
+app.post("/api/users", postUser);
+app.post("/api/events", postEvent);
 app.post("/api/events/:event_id/comments",postCommentByEventId);
+
+app.patch("/api/users", patchUser);
+
 app.use("*", (req, res) => {
   res.status(404).send({ msg: "404 no such route" });
 });
