@@ -13,7 +13,7 @@ afterAll(() => {
   db.end();
 });
 
-describe("app", () => {
+describe("APP", () => {
   describe("GET api/events", () => {
     test("status: 200, responds with all events as an array of events objects", () => {
       return request(app)
