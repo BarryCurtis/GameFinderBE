@@ -19,6 +19,12 @@ const fetchEvents = (query) => {
             qeuryStr += ` AND gender = '${query.gender}'`;
         }
     }
+    if (query.order) {
+        qeuryStr += ` ORDER BY time ${query.order}`;
+    }
+    else if (!query.order) {
+        qeuryStr += ` ORDER BY time ASC`;
+    }
     return connection_1.default.query(qeuryStr).then((result) => {
         return result.rows;
     });

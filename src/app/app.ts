@@ -20,6 +20,10 @@ app.get('/api/events/:event_id', getEventById);
 app.post("/api/users/", postUser);
 app.post("/api/events", postEvent);
 
+app.use("*", (req, res) => {
+  res.status(404).send({ msg: "404 no such route" });
+});
+
 app.use((err, req, res, next) => {
   if (err.status && err.msg) {
     res.status(err.status).send({ msg: err.msg });

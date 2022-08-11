@@ -17,6 +17,9 @@ app.get('/api/events', events_controllers_1.getEvents);
 app.get('/api/events/:event_id', events_controllers_1.getEventById);
 app.post("/api/users/", users_controllers_1.postUser);
 app.post("/api/events", events_controllers_1.postEvent);
+app.use("*", (req, res) => {
+    res.status(404).send({ msg: "404 no such route" });
+});
 app.use((err, req, res, next) => {
     if (err.status && err.msg) {
         res.status(err.status).send({ msg: err.msg });
