@@ -21,6 +21,7 @@ app.get("/api/events/:event_id/comments", comments_controllers_1.getCommentsByEv
 app.post("/api/users", users_controllers_1.postUser);
 app.post("/api/events", events_controllers_1.postEvent);
 app.post("/api/events/:event_id/comments", comments_controllers_1.postCommentByEventId);
+app.post("/api/user/events", users_controllers_1.postUserEvents);
 app.patch("/api/events/:event_id", events_controllers_1.patchEvent);
 app.patch("/api/users", users_controllers_1.patchUser);
 app.use("*", (req, res) => {

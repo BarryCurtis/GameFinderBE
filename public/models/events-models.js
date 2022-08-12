@@ -7,7 +7,7 @@ exports.updateEvent = exports.fetchEventById = exports.addEvent = exports.fetchE
 const connection_1 = __importDefault(require("../db/connection"));
 const validateQueries_1 = require("../utils/validateQueries");
 const fetchEvents = (query) => {
-    const validQeries = [
+    const validQueries = [
         "football",
         "netball",
         "squash",
@@ -23,7 +23,7 @@ const fetchEvents = (query) => {
         "desc",
     ];
     let queryStr = "SELECT * FROM events WHERE 1 = 1";
-    if (query && (0, validateQueries_1.validateQueries)(query, validQeries)) {
+    if (query && (0, validateQueries_1.validateQueries)(query, validQueries)) {
         if (Object.keys(query).includes("category")) {
             queryStr += ` AND category = '${query.category}'`;
         }

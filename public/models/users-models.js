@@ -3,8 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.postNewUser = exports.fetchUserById = void 0;
+exports.bookEvent = exports.updateUser = exports.postNewUser = exports.fetchUserById = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
+const checkExist_1 = require("../utils/checkExist");
 const fetchUserById = (firebase_id) => {
     return connection_1.default
         .query(`SELECT *
@@ -113,3 +114,14 @@ const updateUser = (body) => {
         .catch((err) => console.log(err));
 };
 exports.updateUser = updateUser;
+(firebase_id, event_id) => {
+    console.log(firebase_id);
+    return (0, checkExist_1.checkExist)("users", "firebase_id", firebase_id).then(() => {
+        return (0, checkExist_1.checkExist)("events", "event_id", event_id).then(() => {
+            connection_1.default.query(`INSERT INTO userevents (firebase_id, event_id) VALUES ($1,$2) RETURNING *`);
+        });
+    })
+        .then(result => {
+        return result.rows[0];
+    });
+};
