@@ -1,5 +1,5 @@
 import db from "../db/connection";
-
+import { checkExist } from "../utils/checkExist";
 
 export const fetchUserById = (firebase_id) => {
 
@@ -128,3 +128,4 @@ export const updateUser = (body) => {
     })
     .catch((err) => console.log(err));
 };
+
