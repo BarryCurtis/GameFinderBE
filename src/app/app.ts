@@ -1,11 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 
-import {
-  patchUser,
-  postUser,
-  getUserById,
-} from "../controllers/users-controllers";
+import { patchUser, postUser, getUserById, postUserEvents} from "../controllers/users-controllers";
 
 import {
   getEvents,
@@ -34,7 +30,10 @@ app.get("/api/events/:event_id/comments", getCommentsByEventsId);
 
 app.post("/api/users", postUser);
 app.post("/api/events", postEvent);
-app.post("/api/events/:event_id/comments", postCommentByEventId);
+
+app.post("/api/events/:event_id/comments",postCommentByEventId);
+app.post("/api/user/events",postUserEvents)
+
 
 app.patch("/api/events/:event_id", patchEvent);
 app.patch("/api/users", patchUser);
