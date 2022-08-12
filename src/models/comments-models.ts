@@ -1,6 +1,6 @@
 import db from "../db/connection";
 import { checkExist } from "../utils/checkExist";
-export const fetchCommentsBYEventsId = (event_id) => {
+export const fetchCommentsBYEventsId = (event_id: string) => {
   if (isNaN(Number(event_id))) {
     return Promise.reject({
       status: 400,
@@ -21,12 +21,11 @@ export const fetchCommentsBYEventsId = (event_id) => {
 };
 
 export const addCommentBYEventsId = (
-  event_id,
-  firebase_id,
-  comment_body,
-  comment_time
+  event_id: string,
+  firebase_id: string,
+  comment_body: string,
+  comment_time: string
 ) => {
- 
   if (comment_body === "") {
     return Promise.reject({
       status: 400,

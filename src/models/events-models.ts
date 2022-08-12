@@ -1,6 +1,9 @@
 import db from "../db/connection";
 import { validateQueries } from "../utils/validateQueries";
-export const fetchEvents = (query) => {
+import Sportevent from "../db/data/events-test";
+import { Query } from "../utils/validateQueries";
+
+export const fetchEvents = (query: Query) => {
   const validQueries = [
     "football",
     "netball",
@@ -32,7 +35,6 @@ export const fetchEvents = (query) => {
   }
   if (query.order && validQueries.includes(query.order)) {
     queryStr += ` ORDER BY time ${query.order}`;
-
   } else if (!query.order) {
     queryStr += ` ORDER BY time ASC`;
   }
@@ -43,20 +45,20 @@ export const fetchEvents = (query) => {
 };
 
 export const addEvent = (
-  firebase_id,
-  category,
-  date,
-  time,
-  duration,
-  gender,
-  skills_level,
-  location,
-  needed_players,
-  age_group,
-  cost
+  firebase_id: string,
+  category: string,
+  date: string,
+  time: string,
+  duration: number,
+  gender: string,
+  skills_level: number,
+  location: string,
+  needed_players: number,
+  age_group: string,
+  cost: number
 ) => {
-
-    if (!firebase_id ||
+  if (
+    !firebase_id ||
     !category ||
     !date ||
     !time ||
@@ -66,9 +68,11 @@ export const addEvent = (
     !location ||
     !needed_players ||
     !age_group ||
-    !cost)
-    {return Promise.reject(
-        {status: 400, msg: `Invalid object passed, please use format:
+    !cost
+  ) {
+    return Promise.reject({
+      status: 400,
+      msg: `Invalid object passed, please use format:
         {
   firebase_id: string,
   category: string,
@@ -82,8 +86,9 @@ export const addEvent = (
   age_group: string,
   cost: number
 }
-`}
-    )}
+`,
+    });
+  }
   return db
     .query(
       `INSERT INTO events
@@ -109,7 +114,7 @@ export const addEvent = (
     });
 };
 
-export const fetchEventById = (event_id) => {
+export const fetchEventById = (event_id: string) => {
   if (isNaN(Number(event_id))) {
     return Promise.reject({
       status: 400,
@@ -135,9 +140,9 @@ export const fetchEventById = (event_id) => {
     });
 };
 
-export const updateEvent = (updatedEvent) => {
-
-     if (!updatedEvent.firebase_id ||
+export const updateEvent = (updatedEvent: Sportevent) => {
+  if (
+    !updatedEvent.firebase_id ||
     !updatedEvent.category ||
     !updatedEvent.date ||
     !updatedEvent.time ||
@@ -147,9 +152,11 @@ export const updateEvent = (updatedEvent) => {
     !updatedEvent.location ||
     !updatedEvent.needed_players ||
     !updatedEvent.age_group ||
-    !updatedEvent.cost)
-    {return Promise.reject(
-        {status: 400, msg: `Invalid object passed, please use format:
+    !updatedEvent.cost
+  ) {
+    return Promise.reject({
+      status: 400,
+      msg: `Invalid object passed, please use format:
         {
   firebase_id: string,
   category: string,
@@ -163,33 +170,35 @@ export const updateEvent = (updatedEvent) => {
   age_group: string,
   cost: number
 }
-`})}
+`,
+    });
+  }
   return db
     .query(
       `UPDATE events 
       SET category = $1, date = $2, time = $3, duration = $4, gender = $5, skills_level = $6, location = $7, needed_players = $8, age_group = $9, cost = $10
     WHERE event_id = $11 RETURNING *`,
       [
-  updatedEvent.category,
-  updatedEvent.date,
-  updatedEvent.time,
-  updatedEvent.duration,
-  updatedEvent.gender,
-  updatedEvent.skills_level,
-  updatedEvent.location,
-  updatedEvent.needed_players,
-  updatedEvent.age_group,
-  updatedEvent.cost,
-  updatedEvent.event_id
-]
+        updatedEvent.category,
+        updatedEvent.date,
+        updatedEvent.time,
+        updatedEvent.duration,
+        updatedEvent.gender,
+        updatedEvent.skills_level,
+        updatedEvent.location,
+        updatedEvent.needed_players,
+        updatedEvent.age_group,
+        updatedEvent.cost,
+        updatedEvent.event_id,
+      ]
     )
     .then((result) => {
       if (result.rows.length === 0) {
-        return Promise.reject({ status: 404, msg: "Event doesn't exist, please try again" });
+        return Promise.reject({
+          status: 404,
+          msg: "Event doesn't exist, please try again",
+        });
       }
       return result.rows[0];
     });
 };
-
-
-

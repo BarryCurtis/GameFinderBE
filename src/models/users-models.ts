@@ -1,7 +1,9 @@
 import db from "../db/connection";
+import User from "../db/data/users-test";
+
 import { checkExist } from "../utils/checkExist";
 
-export const fetchUserById = (firebase_id) => {
+export const fetchUserById = (firebase_id: string) => {
 
   return db
     .query(
@@ -18,12 +20,12 @@ export const fetchUserById = (firebase_id) => {
         });
       }
 
+
       return result.rows[0];
     })
 }
 
-
-export const postNewUser = (body) => {
+export const postNewUser = (body: User) => {
   if (
     !body.firebase_id ||
     !body.name ||
@@ -74,7 +76,7 @@ export const postNewUser = (body) => {
     .catch((err) => console.log(err));
 };
 
-export const updateUser = (body) => {
+export const updateUser = (body: User) => {
   if (
     !body.firebase_id ||
     !body.name ||
@@ -104,6 +106,7 @@ export const updateUser = (body) => {
         `UPDATE users SET name=$2, username=$3, age=$4, profile_icon=$5, skills_level=$6, rating=$7
       WHERE firebase_id=$1 RETURNING *
       `,
+
         [
           body.firebase_id,
           body.name,
@@ -124,6 +127,7 @@ export const updateUser = (body) => {
     return newUser.rows[0];
   })
 };
+
 
 export const bookEvent = (firebase_id, event_id) => {
   return checkExist("users", "firebase_id", firebase_id).then(() => {
