@@ -1,29 +1,27 @@
 import db from "../db/connection";
+import User from "../db/data/users-test";
 
-
-export const fetchUserById = (firebase_id) => {
-
-return db
-.query(
-  `SELECT *
+export const fetchUserById = (firebase_id: string) => {
+  return db
+    .query(
+      `SELECT *
   FROM users
   WHERE users.firebase_id = $1`,
-  [firebase_id]
-)
-.then((result)=> {
-  if (result.rows.length === 0) {
-    return Promise.reject({
-      status: 404,
-      msg: `User not found for user_id: ${firebase_id}`,
+      [firebase_id]
+    )
+    .then((result) => {
+      if (result.rows.length === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: `User not found for user_id: ${firebase_id}`,
+        });
+      }
+
+      return result.rows[0];
     });
-  }
-  
-  return result.rows[0];
-})
-}
+};
 
-
-export const postNewUser = (body) => {
+export const postNewUser = (body: User) => {
   if (
     !body.firebase_id ||
     !body.name ||
@@ -74,7 +72,7 @@ export const postNewUser = (body) => {
     .catch((err) => console.log(err));
 };
 
-export const updateUser = (body) => {
+export const updateUser = (body: User) => {
   if (
     !body.firebase_id ||
     !body.name ||
@@ -115,8 +113,6 @@ export const updateUser = (body) => {
       ]
     )
     .then((newUser) => {
-    
-
       if (newUser.rowCount === 0) {
         return Promise.reject({
           status: 404,
