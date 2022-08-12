@@ -90,9 +90,9 @@ const updateUser = (body) => {
         rating: number,
         event_id: number}`,
         });
-    return (0, checkExist_1.checkExist)("users", "firebase_id", body.firebase_id).then(() => {
-        return connection_1.default
-            .query(`UPDATE users SET name=$2, username=$3, age=$4, profile_icon=$5, skills_level=$6, rating=$7
+    return (0, checkExist_1.checkExist)("users", "firebase_id", body.firebase_id)
+        .then(() => {
+        return connection_1.default.query(`UPDATE users SET name=$2, username=$3, age=$4, profile_icon=$5, skills_level=$6, rating=$7
       WHERE firebase_id=$1 RETURNING *
       `, [
             body.firebase_id,
@@ -103,7 +103,8 @@ const updateUser = (body) => {
             body.skills_level,
             body.rating,
         ]);
-    }).then((newUser) => {
+    })
+        .then((newUser) => {
         if (newUser.rowCount === 0) {
             return Promise.reject({
                 status: 404,
@@ -115,12 +116,13 @@ const updateUser = (body) => {
 };
 exports.updateUser = updateUser;
 const bookEvent = (firebase_id, event_id) => {
-    return (0, checkExist_1.checkExist)("users", "firebase_id", firebase_id).then(() => {
+    return (0, checkExist_1.checkExist)("users", "firebase_id", firebase_id)
+        .then(() => {
         return (0, checkExist_1.checkExist)("events", "event_id", event_id).then(() => {
             return connection_1.default.query(`INSERT INTO userevents (firebase_id, event_id) VALUES ($1,$2) RETURNING *`, [firebase_id, event_id]);
         });
     })
-        .then(result => {
+        .then((result) => {
         return result.rows[0];
     });
 };
