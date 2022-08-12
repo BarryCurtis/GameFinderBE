@@ -7,7 +7,7 @@ exports.updateEvent = exports.fetchEventById = exports.addEvent = exports.fetchE
 const connection_1 = __importDefault(require("../db/connection"));
 const validateQueries_1 = require("../utils/validateQueries");
 const fetchEvents = (query) => {
-    const validQeries = [
+    const validQueries = [
         "football",
         "netball",
         "squash",
@@ -23,7 +23,7 @@ const fetchEvents = (query) => {
         "desc",
     ];
     let queryStr = "SELECT * FROM events WHERE 1 = 1";
-    if (query && (0, validateQueries_1.validateQueries)(query, validQeries)) {
+    if (query && (0, validateQueries_1.validateQueries)(query, validQueries)) {
         if (Object.keys(query).includes("category")) {
             queryStr += ` AND category = '${query.category}'`;
         }
@@ -57,7 +57,9 @@ const addEvent = (firebase_id, category, date, time, duration, gender, skills_le
         !needed_players ||
         !age_group ||
         !cost) {
-        return Promise.reject({ status: 400, msg: `Invalid object passed, please use format:
+        return Promise.reject({
+            status: 400,
+            msg: `Invalid object passed, please use format:
         {
   firebase_id: string,
   category: string,
@@ -71,7 +73,8 @@ const addEvent = (firebase_id, category, date, time, duration, gender, skills_le
   age_group: string,
   cost: number
 }
-` });
+`,
+        });
     }
     return connection_1.default
         .query(`INSERT INTO events
@@ -130,7 +133,9 @@ const updateEvent = (updatedEvent) => {
         !updatedEvent.needed_players ||
         !updatedEvent.age_group ||
         !updatedEvent.cost) {
-        return Promise.reject({ status: 400, msg: `Invalid object passed, please use format:
+        return Promise.reject({
+            status: 400,
+            msg: `Invalid object passed, please use format:
         {
   firebase_id: string,
   category: string,
@@ -144,7 +149,8 @@ const updateEvent = (updatedEvent) => {
   age_group: string,
   cost: number
 }
-` });
+`,
+        });
     }
     return connection_1.default
         .query(`UPDATE events 
@@ -160,11 +166,14 @@ const updateEvent = (updatedEvent) => {
         updatedEvent.needed_players,
         updatedEvent.age_group,
         updatedEvent.cost,
-        updatedEvent.event_id
+        updatedEvent.event_id,
     ])
         .then((result) => {
         if (result.rows.length === 0) {
-            return Promise.reject({ status: 404, msg: "Event doesn't exist, please try again" });
+            return Promise.reject({
+                status: 404,
+                msg: "Event doesn't exist, please try again",
+            });
         }
         return result.rows[0];
     });
