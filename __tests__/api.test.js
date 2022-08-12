@@ -338,6 +338,14 @@ describe("APP POST", () => {
         });
     });
   });
+  describe("POST api/users/events",()=>{
+    test("add input to userevents and rturn it",()=>{
+      return request(app).post("/api/user/events").send({firebase_id: "1a", event_id: 1})
+      .expect(201).then(({body:{event}})=>{
+        expect(event).toEqual({firebase_id:"1a", event_id:1, userevent_id: expect.any(Number)})
+      })
+    })
+  })
 });
 
 describe("APP PATCH", () => {
@@ -415,7 +423,7 @@ describe("APP PATCH", () => {
     });
   });
 });
-
+// error handling
 describe("ERROR HANDLING", () => {
   describe("PATH invalid path", () => {
     test("should return 404 no such route", () => {
@@ -597,11 +605,12 @@ describe("ERROR HANDLING", () => {
         event_id: number}`);
         });
     });
-    test("404 - handles bad path - no such article id", () => {
+    test("404 - handles bad path - no such user id", () => {
       return request(app)
         .patch("/api/users")
         .send({
           firebase_id: "1000",
+          name: "beyar",
           username: "AndyS",
           age: 38,
           gender: "male",
@@ -612,7 +621,7 @@ describe("ERROR HANDLING", () => {
         })
         .expect(404)
         .then(({ body: { msg } }) => {
-          expect(msg).toBe("user 1000 - does not exist");
+          expect(msg).toBe("1000 does not exist");
         });
     });
   });

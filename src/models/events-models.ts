@@ -30,7 +30,7 @@ export const fetchEvents = (query) => {
       queryStr += ` AND gender = '${query.gender}'`;
     }
   }
-  if (query.order && validOrders.includes(query.order)) {
+  if (query.order && validQueries.includes(query.order)) {
     queryStr += ` ORDER BY time ${query.order}`;
 
   } else if (!query.order) {

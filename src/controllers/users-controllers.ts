@@ -44,6 +44,6 @@ export const postUserEvents = (
       .status(201)
       .send({ event })
   }).catch((err:any) => {
-    console.log(err);
+    next(err)
   });
 };

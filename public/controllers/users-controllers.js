@@ -40,7 +40,7 @@ const postUserEvents = (req, res, next) => {
             .status(201)
             .send({ event });
     }).catch((err) => {
-        console.log(err);
+        next(err);
     });
 };
 exports.postUserEvents = postUserEvents;

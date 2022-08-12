@@ -3,23 +3,23 @@ import { checkExist } from "../utils/checkExist";
 
 export const fetchUserById = (firebase_id) => {
 
-return db
-.query(
-  `SELECT *
+  return db
+    .query(
+      `SELECT *
   FROM users
   WHERE users.firebase_id = $1`,
-  [firebase_id]
-)
-.then((result)=> {
-  if (result.rows.length === 0) {
-    return Promise.reject({
-      status: 404,
-      msg: `User not found for user_id: ${firebase_id}`,
-    });
-  }
-  
-  return result.rows[0];
-})
+      [firebase_id]
+    )
+    .then((result) => {
+      if (result.rows.length === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: `User not found for user_id: ${firebase_id}`,
+        });
+      }
+
+      return result.rows[0];
+    })
 }
 
 
@@ -98,45 +98,40 @@ export const updateUser = (body) => {
         rating: number,
         event_id: number}`,
     });
-
-  return db
-    .query(
-      `UPDATE users SET name=$2, username=$3, age=$4, profile_icon=$5, skills_level=$6, rating=$7
+  return checkExist("users", "firebase_id", body.firebase_id).then(() => {
+    return db
+      .query(
+        `UPDATE users SET name=$2, username=$3, age=$4, profile_icon=$5, skills_level=$6, rating=$7
       WHERE firebase_id=$1 RETURNING *
       `,
-      [
-        body.firebase_id,
-        body.name,
-        body.username,
-        body.age,
-        body.profile_icon,
-        body.skills_level,
-        body.rating,
-      ]
-    )
-    .then((newUser) => {
-    
-
-      if (newUser.rowCount === 0) {
-        return Promise.reject({
-          status: 404,
-          msg: `user ${body.firebase_id} - does not exist`,
-        });
-      }
-
-      return newUser.rows[0];
-    })
-    .catch((err) => console.log(err));
+        [
+          body.firebase_id,
+          body.name,
+          body.username,
+          body.age,
+          body.profile_icon,
+          body.skills_level,
+          body.rating,
+        ]
+      )
+  }).then((newUser) => {
+    if (newUser.rowCount === 0) {
+      return Promise.reject({
+        status: 404,
+        msg: `user ${body.firebase_id} - does not exist`,
+      });
+    }
+    return newUser.rows[0];
+  })
 };
 
-export const bookEvent(firebase_id, event_id){
-  console.log(firebase_id)
-  return checkExist("users","firebase_id", firebase_id).then(()=>{
-    return checkExist("events", "event_id", event_id).then(()=>{
-      db.query(`INSERT INTO userevents (firebase_id, event_id) VALUES ($1,$2) RETURNING *`)
+export const bookEvent = (firebase_id, event_id) => {
+  return checkExist("users", "firebase_id", firebase_id).then(() => {
+    return checkExist("events", "event_id", event_id).then(() => {
+      return db.query(`INSERT INTO userevents (firebase_id, event_id) VALUES ($1,$2) RETURNING *`, [firebase_id, event_id])
     })
-  }) 
-  .then(result=>{
-    return result.rows[0]
   })
+    .then(result => {
+      return result.rows[0]
+    })
 }
