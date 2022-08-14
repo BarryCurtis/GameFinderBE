@@ -141,3 +141,9 @@ export const bookEvent = (firebase_id: string, event_id: string) => {
       return result.rows[0];
     });
 };
+export const fetchUserEvents = (firebase_id: String)=>{
+  return db.query(`SELECT * FROM userevents WHERE firebase_id = $1;`,[firebase_id])
+  .then(result=>{
+    return result.rows
+  })
+}

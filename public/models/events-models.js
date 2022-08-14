@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateEvent = exports.fetchEventById = exports.addEvent = exports.fetchEvents = void 0;
+exports.removeEvent = exports.updateEvent = exports.fetchEventById = exports.addEvent = exports.fetchEvents = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const validateQueries_1 = require("../utils/validateQueries");
 const fetchEvents = (query) => {
@@ -179,3 +179,11 @@ const updateEvent = (updatedEvent) => {
     });
 };
 exports.updateEvent = updateEvent;
+const removeEvent = (event_id) => {
+    console.log(event_id, ">>>>model");
+    return connection_1.default.query("DELETE FROM userevents WHERE event_id = $1", [event_id])
+        .then((result) => {
+        return result.rows;
+    });
+};
+exports.removeEvent = removeEvent;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postUserEvents = exports.patchUser = exports.postUser = exports.getUserById = void 0;
+exports.getUserEvents = exports.postUserEvents = exports.patchUser = exports.postUser = exports.getUserById = void 0;
 const users_models_1 = require("../models/users-models");
 const getUserById = (req, res, next) => {
     const { user_id } = req.params;
@@ -35,12 +35,23 @@ const patchUser = (req, res, next) => {
 exports.patchUser = patchUser;
 const postUserEvents = (req, res, next) => {
     const { event_id, firebase_id } = req.body;
-    return (0, users_models_1.bookEvent)(firebase_id, event_id).then((event) => {
-        res
-            .status(201)
-            .send({ event });
-    }).catch((err) => {
+    return (0, users_models_1.bookEvent)(firebase_id, event_id)
+        .then((event) => {
+        res.status(201).send({ event });
+    })
+        .catch((err) => {
         next(err);
     });
 };
 exports.postUserEvents = postUserEvents;
+const getUserEvents = (req, res, next) => {
+    const { user_id } = req.params;
+    return (0, users_models_1.fetchUserEvents)(user_id)
+        .then((userEvents) => {
+        res.status(200).send({ userEvents });
+    })
+        .catch((err) => {
+        next(err);
+    });
+};
+exports.getUserEvents = getUserEvents;

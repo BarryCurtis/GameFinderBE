@@ -18,12 +18,14 @@ app.get("/api/events", events_controllers_1.getEvents);
 app.get("/api/events/:event_id", events_controllers_1.getEventById);
 app.get("/api/users/:user_id", users_controllers_1.getUserById);
 app.get("/api/events/:event_id/comments", comments_controllers_1.getCommentsByEventsId);
+app.get("/api/user/:user_id/events", users_controllers_1.getUserEvents);
 app.post("/api/users", users_controllers_1.postUser);
 app.post("/api/events", events_controllers_1.postEvent);
 app.post("/api/events/:event_id/comments", comments_controllers_1.postCommentByEventId);
 app.post("/api/user/events", users_controllers_1.postUserEvents);
 app.patch("/api/events/:event_id", events_controllers_1.patchEvent);
 app.patch("/api/users", users_controllers_1.patchUser);
+app.delete("/api/events/:event_id", events_controllers_1.deleteEvent);
 app.use("*", (req, res) => {
     res.status(404).send({ msg: "404 no such route" });
 });

@@ -239,6 +239,23 @@ describe("APP GET", () => {
         });
     });
   });
+  describe("GET user/:user_id/events", () => {
+    test("should return user events", () => {
+      return request(app)
+        .get("/api/user/1a/events")
+        .expect(200)
+        .then(({ body: { userEvents } }) => {
+          expect(userEvents).toHaveLength(3);
+          userEvents.forEach((ue) => {
+            expect(ue).toEqual({
+                event_id: expect.any(Number),
+                firebase_id: "1a",
+                userevent_id: expect.any(Number),
+              });
+          });
+        });
+    });
+  });
 });
 
 describe("APP POST", () => {
@@ -338,14 +355,21 @@ describe("APP POST", () => {
         });
     });
   });
-  describe("POST api/users/events",()=>{
-    test("add input to userevents and rturn it",()=>{
-      return request(app).post("/api/user/events").send({firebase_id: "1a", event_id: 1})
-      .expect(201).then(({body:{event}})=>{
-        expect(event).toEqual({firebase_id:"1a", event_id:1, userevent_id: expect.any(Number)})
-      })
-    })
-  })
+  describe("POST api/users/events", () => {
+    test("add input to userevents and rturn it", () => {
+      return request(app)
+        .post("/api/user/events")
+        .send({ firebase_id: "1a", event_id: 1 })
+        .expect(201)
+        .then(({ body: { event } }) => {
+          expect(event).toEqual({
+            firebase_id: "1a",
+            event_id: 1,
+            userevent_id: expect.any(Number),
+          });
+        });
+    });
+  });
 });
 
 describe("APP PATCH", () => {
@@ -422,6 +446,19 @@ describe("APP PATCH", () => {
         });
     });
   });
+  describe("DELETE /api/events/:event_id", ()=>{
+    test("should delete event by id", ()=>{
+      return db.query("SELECT * FROM events WHERE event_id = 5").then(({rows})=>{
+        expect(rows[0].event_id).toBe(5)
+        return request(app).delete("/api/events/5").expect(204)
+      }).then(()=>{
+        db.query("SELECT * FROM events WHERE event_id = 5").then(({rowCount, rows})=>{
+          console.log(rows)
+          expect(rowCount).toBe(0)
+      })
+    })
+    })
+  })
 });
 // error handling
 describe("ERROR HANDLING", () => {

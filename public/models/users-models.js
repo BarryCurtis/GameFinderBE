@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookEvent = exports.updateUser = exports.postNewUser = exports.fetchUserById = void 0;
+exports.fetchUserEvents = exports.bookEvent = exports.updateUser = exports.postNewUser = exports.fetchUserById = void 0;
 const connection_1 = __importDefault(require("../db/connection"));
 const checkExist_1 = require("../utils/checkExist");
 const fetchUserById = (firebase_id) => {
@@ -127,3 +127,10 @@ const bookEvent = (firebase_id, event_id) => {
     });
 };
 exports.bookEvent = bookEvent;
+const fetchUserEvents = (firebase_id) => {
+    return connection_1.default.query(`SELECT * FROM userevents WHERE firebase_id = $1;`, [firebase_id])
+        .then(result => {
+        return result.rows;
+    });
+};
+exports.fetchUserEvents = fetchUserEvents;
