@@ -1,13 +1,14 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 
-import { patchUser, postUser, getUserById, postUserEvents} from "../controllers/users-controllers";
+import { patchUser, postUser, getUserById, postUserEvents, getUserEvents} from "../controllers/users-controllers";
 
 import {
   getEvents,
   getEventById,
   postEvent,
   patchEvent,
+  deleteEvent
 } from "../controllers/events-controllers";
 import {
   getCommentsByEventsId,
@@ -27,6 +28,7 @@ app.get("/api/events", getEvents);
 app.get("/api/events/:event_id", getEventById);
 app.get("/api/users/:user_id", getUserById);
 app.get("/api/events/:event_id/comments", getCommentsByEventsId);
+app.get("/api/user/:user_id/events", getUserEvents)
 
 app.post("/api/users", postUser);
 app.post("/api/events", postEvent);
@@ -37,6 +39,8 @@ app.post("/api/user/events",postUserEvents)
 
 app.patch("/api/events/:event_id", patchEvent);
 app.patch("/api/users", patchUser);
+
+app.delete("api/events/:event_id", deleteEvent)
 
 app.use("*", (req: Request, res: Response) => {
   res.status(404).send({ msg: "404 no such route" });

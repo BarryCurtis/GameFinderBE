@@ -1,17 +1,27 @@
 import { NextFunction, Request, Response } from "express";
 
-import { postNewUser, updateUser, fetchUserById, bookEvent } from "../models/users-models";
+import {
+  postNewUser,
+  updateUser,
+  fetchUserById,
+  bookEvent,
+  fetchUserEvents
+} from "../models/users-models";
 
-export const getUserById = (req: Request, res: Response, next: NextFunction) => {
+export const getUserById = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { user_id } = req.params;
   fetchUserById(user_id)
-  .then((user)=> {
-    res.status(200).send({user});
-  })
-  .catch((err)=> {
-    next(err)
-  })
-}
+    .then((user) => {
+      res.status(200).send({ user });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
 
 export const postUser = (req: Request, res: Response, next: NextFunction) => {
   return postNewUser(req.body)
@@ -38,12 +48,27 @@ export const postUserEvents = (
   res: Response,
   next: NextFunction
 ) => {
-  const {event_id, firebase_id} = req.body
-  return bookEvent(firebase_id, event_id).then((event:any) => {
-    res
-      .status(201)
-      .send({ event })
-  }).catch((err:any) => {
-    next(err)
-  });
+  const { event_id, firebase_id } = req.body;
+  return bookEvent(firebase_id, event_id)
+    .then((event: any) => {
+      res.status(201).send({ event });
+    })
+    .catch((err: any) => {
+      next(err);
+    });
+};
+
+export const getUserEvents = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { user_id } = req.params;
+  return fetchUserEvents(user_id)
+    .then((userEvents) => {
+      res.status(200).send({userEvents});
+    })
+    .catch((err) => {
+      next(err);
+    });
 };

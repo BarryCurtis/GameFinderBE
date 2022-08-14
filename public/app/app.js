@@ -18,6 +18,7 @@ app.get("/api/events", events_controllers_1.getEvents);
 app.get("/api/events/:event_id", events_controllers_1.getEventById);
 app.get("/api/users/:user_id", users_controllers_1.getUserById);
 app.get("/api/events/:event_id/comments", comments_controllers_1.getCommentsByEventsId);
+app.get("/api/user/:user_id/events", users_controllers_1.getUserEvents);
 app.post("/api/users", users_controllers_1.postUser);
 app.post("/api/events", events_controllers_1.postEvent);
 app.post("/api/events/:event_id/comments", comments_controllers_1.postCommentByEventId);

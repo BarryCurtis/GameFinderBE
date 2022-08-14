@@ -239,6 +239,23 @@ describe("APP GET", () => {
         });
     });
   });
+  describe("GET user/:user_id/events", () => {
+    test("should return user events", () => {
+      return request(app)
+        .get("/api/user/1a/events")
+        .expect(200)
+        .then(({ body: { userEvents } }) => {
+          expect(userEvents).toHaveLength(3);
+          userEvents.forEach((ue) => {
+            expect(ue).toEqual({
+                event_id: expect.any(Number),
+                firebase_id: "1a",
+                userevent_id: expect.any(Number),
+              });
+          });
+        });
+    });
+  });
 });
 
 describe("APP POST", () => {
@@ -338,14 +355,21 @@ describe("APP POST", () => {
         });
     });
   });
-  describe("POST api/users/events",()=>{
-    test("add input to userevents and rturn it",()=>{
-      return request(app).post("/api/user/events").send({firebase_id: "1a", event_id: 1})
-      .expect(201).then(({body:{event}})=>{
-        expect(event).toEqual({firebase_id:"1a", event_id:1, userevent_id: expect.any(Number)})
-      })
-    })
-  })
+  describe("POST api/users/events", () => {
+    test("add input to userevents and rturn it", () => {
+      return request(app)
+        .post("/api/user/events")
+        .send({ firebase_id: "1a", event_id: 1 })
+        .expect(201)
+        .then(({ body: { event } }) => {
+          expect(event).toEqual({
+            firebase_id: "1a",
+            event_id: 1,
+            userevent_id: expect.any(Number),
+          });
+        });
+    });
+  });
 });
 
 describe("APP PATCH", () => {
