@@ -202,3 +202,11 @@ export const updateEvent = (updatedEvent: Sportevent) => {
       return result.rows[0];
     });
 };
+
+export const removeEvent = (event_id:String) =>{
+  console.log(event_id, ">>>>model")
+  return db.query("DELETE FROM userevents WHERE event_id = $1", [event_id])
+  .then((result)=>{
+    return result.rows
+  })
+}

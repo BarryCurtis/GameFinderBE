@@ -40,7 +40,7 @@ app.post("/api/user/events",postUserEvents)
 app.patch("/api/events/:event_id", patchEvent);
 app.patch("/api/users", patchUser);
 
-app.delete("api/events/:event_id", deleteEvent)
+app.delete("/api/events/:event_id", deleteEvent)
 
 app.use("*", (req: Request, res: Response) => {
   res.status(404).send({ msg: "404 no such route" });

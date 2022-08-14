@@ -55,7 +55,7 @@ const seed = ({ comments, users, sportevents, userevents, }) => {
      CREATE TABLE userevents (
       userevent_id SERIAL PRIMARY KEY,
       firebase_id VARCHAR REFERENCES users(firebase_id),
-      event_id INT REFERENCES events(event_id)
+      event_id INT REFERENCES events(event_id) ON DELETE CASCADE
       );`);
     })
         .then(() => {

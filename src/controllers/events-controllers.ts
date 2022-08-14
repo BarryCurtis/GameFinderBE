@@ -4,6 +4,7 @@ import {
   fetchEventById,
   addEvent,
   updateEvent,
+  removeEvent
 } from "../models/events-models";
 
 export const getEvents = (req: Request, res: Response, next: NextFunction) => {
@@ -78,3 +79,12 @@ export const patchEvent = (req: Request, res: Response, next: NextFunction) => {
       next(err);
     });
 };
+
+export const deleteEvent = (req: Request, res: Response, next: NextFunction) =>{
+  const {event_id} = req.params
+  removeEvent(event_id).then(()=>{
+    res.sendStatus(204)
+  }).catch(err=>{
+    next(err)
+  })
+}

@@ -25,6 +25,7 @@ app.post("/api/events/:event_id/comments", comments_controllers_1.postCommentByE
 app.post("/api/user/events", users_controllers_1.postUserEvents);
 app.patch("/api/events/:event_id", events_controllers_1.patchEvent);
 app.patch("/api/users", users_controllers_1.patchUser);
+app.delete("/api/events/:event_id", events_controllers_1.deleteEvent);
 app.use("*", (req, res) => {
     res.status(404).send({ msg: "404 no such route" });
 });
