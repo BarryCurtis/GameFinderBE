@@ -119,7 +119,11 @@ const bookEvent = (firebase_id, event_id) => {
     return (0, checkExist_1.checkExist)("users", "firebase_id", firebase_id)
         .then(() => {
         return (0, checkExist_1.checkExist)("events", "event_id", event_id).then(() => {
-            return connection_1.default.query(`INSERT INTO userevents (firebase_id, event_id) VALUES ($1,$2) RETURNING *`, [firebase_id, event_id]);
+            return connection_1.default
+                .query(`UPDATE events SET needed_players = needed_players-1 WHERE event_id = $1;`, [event_id])
+                .then(() => {
+                return connection_1.default.query(`INSERT INTO userevents (firebase_id, event_id) VALUES ($1,$2) RETURNING *`, [firebase_id, event_id]);
+            });
         });
     })
         .then((result) => {
@@ -128,8 +132,9 @@ const bookEvent = (firebase_id, event_id) => {
 };
 exports.bookEvent = bookEvent;
 const fetchUserEvents = (firebase_id) => {
-    return connection_1.default.query(`SELECT * FROM userevents WHERE firebase_id = $1;`, [firebase_id])
-        .then(result => {
+    return connection_1.default
+        .query(`SELECT * FROM userevents WHERE firebase_id = $1;`, [firebase_id])
+        .then((result) => {
         return result.rows;
     });
 };
