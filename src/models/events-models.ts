@@ -26,13 +26,18 @@ export const fetchEvents = (query: Query) => {
     if (Object.keys(query).includes("category")) {
       queryStr += ` AND category = '${query.category}'`;
     }
+  }
+  if (query && validateQueries(query, validQueries)) {
     if (Object.keys(query).includes("age_group")) {
       queryStr += ` AND age_group = '${query.age_group}'`;
     }
+  }
+  if (query && validateQueries(query, validQueries)) {
     if (Object.keys(query).includes("gender")) {
       queryStr += ` AND gender = '${query.gender}'`;
     }
   }
+
   if (query.order && validQueries.includes(query.order)) {
     queryStr += ` ORDER BY time ${query.order}`;
   } else if (!query.order) {
@@ -203,10 +208,10 @@ export const updateEvent = (updatedEvent: Sportevent) => {
     });
 };
 
-export const removeEvent = (event_id:String) =>{
-  console.log(event_id, ">>>>model")
-  return db.query("DELETE FROM userevents WHERE event_id = $1", [event_id])
-  .then((result)=>{
-    return result.rows
-  })
-}
+export const removeEvent = (event_id: String) => {
+  return db
+    .query("DELETE FROM userevents WHERE event_id = $1", [event_id])
+    .then((result) => {
+      return result.rows;
+    });
+};

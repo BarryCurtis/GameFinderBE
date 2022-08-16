@@ -27,9 +27,13 @@ const fetchEvents = (query) => {
         if (Object.keys(query).includes("category")) {
             queryStr += ` AND category = '${query.category}'`;
         }
+    }
+    if (query && (0, validateQueries_1.validateQueries)(query, validQueries)) {
         if (Object.keys(query).includes("age_group")) {
             queryStr += ` AND age_group = '${query.age_group}'`;
         }
+    }
+    if (query && (0, validateQueries_1.validateQueries)(query, validQueries)) {
         if (Object.keys(query).includes("gender")) {
             queryStr += ` AND gender = '${query.gender}'`;
         }
@@ -180,8 +184,8 @@ const updateEvent = (updatedEvent) => {
 };
 exports.updateEvent = updateEvent;
 const removeEvent = (event_id) => {
-    console.log(event_id, ">>>>model");
-    return connection_1.default.query("DELETE FROM userevents WHERE event_id = $1", [event_id])
+    return connection_1.default
+        .query("DELETE FROM userevents WHERE event_id = $1", [event_id])
         .then((result) => {
         return result.rows;
     });
