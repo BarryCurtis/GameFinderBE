@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getEndpoints = void 0;
-const endpoints_json_1 = __importDefault(require("../../endpoints.json"));
+const endpoints_json_1 = __importDefault(require("../endpoints.json"));
 const getEndpoints = (req, res) => {
     res.json(endpoints_json_1.default);
 };
