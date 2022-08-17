@@ -211,6 +211,12 @@ export const updateEvent = (updatedEvent: Sportevent) => {
 export const removeEvent = (event_id: String) => {
   return db
     .query("DELETE FROM userevents WHERE event_id = $1", [event_id])
+    .then(() => {
+      return db.query(
+        `UPDATE events SET needed_players = needed_players+1 WHERE event_id = $1;`,
+        [event_id]
+      );
+    })
     .then((result) => {
       return result.rows;
     });
