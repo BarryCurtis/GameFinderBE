@@ -446,19 +446,19 @@ describe("APP PATCH", () => {
         });
     });
   });
-  describe("DELETE /api/events/:event_id", ()=>{
-    test("should delete event by id", ()=>{
-      return db.query("SELECT * FROM events WHERE event_id = 5").then(({rows})=>{
-        expect(rows[0].event_id).toBe(5)
-        return request(app).delete("/api/events/5").expect(204)
-      }).then(()=>{
-        db.query("SELECT * FROM events WHERE event_id = 5").then(({rowCount, rows})=>{
-          console.log(rows)
-          expect(rowCount).toBe(0)
-      })
-    })
-    })
-  })
+  // describe("DELETE /api/events/:event_id", ()=>{
+  //   test("should delete event by id", ()=>{
+  //     return db.query("SELECT * FROM events WHERE event_id = 5").then(({rows})=>{
+  //       expect(rows[0].event_id).toBe(5)
+  //       return request(app).delete("/api/events/5").expect(204)
+  //     }).then(()=>{
+  //       db.query("SELECT * FROM events WHERE event_id = 5").then(({rowCount, rows})=>{
+  //         console.log(rows)
+  //         expect(rowCount).toBe(0)
+  //     })
+  //   })
+  //   })
+  // })
 });
 // error handling
 describe("ERROR HANDLING", () => {

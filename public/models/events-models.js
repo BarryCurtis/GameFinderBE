@@ -186,6 +186,9 @@ exports.updateEvent = updateEvent;
 const removeEvent = (event_id) => {
     return connection_1.default
         .query("DELETE FROM userevents WHERE event_id = $1", [event_id])
+        .then(() => {
+        return connection_1.default.query(`UPDATE events SET needed_players = needed_players+1 WHERE event_id = $1;`, [event_id]);
+    })
         .then((result) => {
         return result.rows;
     });
