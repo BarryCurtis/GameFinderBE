@@ -6,14 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const users_controllers_1 = require("../controllers/users-controllers");
+const getEndPoints_1 = require("../controllers/getEndPoints");
 const events_controllers_1 = require("../controllers/events-controllers");
 const comments_controllers_1 = require("../controllers/comments-controllers");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-app.get("/", (req, res) => {
-    res.send("Welcome to Find My Game");
-});
+app.get("/", getEndPoints_1.getEndpoints);
 app.get("/api/events", events_controllers_1.getEvents);
 app.get("/api/events/:event_id", events_controllers_1.getEventById);
 app.get("/api/users/:user_id", users_controllers_1.getUserById);

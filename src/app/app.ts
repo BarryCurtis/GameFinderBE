@@ -3,6 +3,8 @@ import cors from "cors";
 
 import { patchUser, postUser, getUserById, postUserEvents, getUserEvents} from "../controllers/users-controllers";
 
+import { getEndpoints } from "../controllers/getEndPoints";
+
 import {
   getEvents,
   getEventById,
@@ -20,10 +22,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to Find My Game");
-});
 
+app.get("/", getEndpoints);
 app.get("/api/events", getEvents);
 app.get("/api/events/:event_id", getEventById);
 app.get("/api/users/:user_id", getUserById);

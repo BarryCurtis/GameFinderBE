@@ -1,0 +1,205 @@
+{
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api/events": {
+    "description": "serves an array of all events",
+    "queries": ["category", "gender", "age_group"],
+    "exampleResponse": {
+      "events": [
+        {
+          "event_id": 25,
+          "firebase_id": "8jNaBCy5ZdelPyGZhROGW9RORAf2",
+          "category": "squash",
+          "date": "30/08/2022",
+          "time": "12:00",
+          "duration": 1,
+          "gender": "female",
+          "skills_level": "2",
+          "location": "M11AP",
+          "needed_players": 4,
+          "age_group": "30-50",
+          "cost": 10
+        },
+        {
+          "event_id": 24,
+          "firebase_id": "1a",
+          "category": "football",
+          "date": "22/09/2022",
+          "time": "16:00",
+          "duration": 1,
+          "gender": "male",
+          "skills_level": "5",
+          "location": "MD12 1PL",
+          "needed_players": -1,
+          "age_group": "18-30",
+          "cost": 5
+        }
+      ]
+    }
+  },
+  "GET /api/events/:event_id": {
+    "description": "serves an array of a specific event",
+    "exampleResponse": {
+      "event": {
+        "event_id": 12,
+        "firebase_id": "12a",
+        "category": "netball",
+        "date": "19/08/2022",
+        "time": "21:00",
+        "duration": 1,
+        "gender": "female",
+        "skills_level": "5",
+        "location": "M12 4TF",
+        "needed_players": 3,
+        "age_group": "30-50",
+        "cost": 5
+      }
+    }
+  },
+
+  "GET /api/users/:user_id": {
+    "description": "serves an object of a specific user",
+    "exampleResponse": {
+      "user": {
+        "user_id": 1,
+        "firebase_id": "1a",
+        "username": "BarryC",
+        "name": "Barry Curtis",
+        "age": 21,
+        "gender": "male",
+        "profile_icon": "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
+        "skills_level": "fun",
+        "rating": 5,
+        "event_id": 1
+      }
+    }
+  },
+  "GET /api/events/:event_id/comments": {
+    "description": "serves an object of an events comments",
+    "exampleResponse": {
+      "comments": [
+        {
+          "comment_id": 1,
+          "firebase_id": "1a",
+          "event_id": 1,
+          "comment_body": "Are there any refreshments?",
+          "comment_time": "2022-09-16T14:23:00.000Z"
+        },
+        {
+          "comment_id": 2,
+          "firebase_id": "2a",
+          "event_id": 1,
+          "comment_body": "Are there any refreshments?",
+          "comment_time": "2022-09-16T14:23:00.000Z"
+        },
+        {
+          "comment_id": 12,
+          "firebase_id": "6a",
+          "event_id": 1,
+          "comment_body": "Will there be oranges and mars bars at half time?",
+          "comment_time": "2022-09-16T14:23:00.000Z"
+        }
+      ]
+    }
+  },
+  "GET /api/users/:user_id/events": {
+    "description": "serves an object of a users events",
+    "exampleResponse": {
+      "userEvents": [
+        { "userevent_id": 1, "firebase_id": "1a", "event_id": 1 },
+        { "userevent_id": 7, "firebase_id": "1a", "event_id": 7 },
+        { "userevent_id": 8, "firebase_id": "1a", "event_id": 8 }
+      ]
+    }
+  },
+  "POST /api/users": {
+    "description": "gives the client the ability to create their user profile",
+    "exampleResponse": {
+      "user": {
+        "user_id": 1,
+        "firebase_id": "1a",
+        "username": "BarryC",
+        "name": "Barry Curtis",
+        "age": 21,
+        "gender": "male",
+        "profile_icon": "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
+        "skills_level": "fun",
+        "rating": 5,
+        "event_id": 1
+      }
+    }
+  },
+  "POST /api/events": {
+    "description": "gives the client the ability to create their event",
+    "exampleResponse": {
+      "event": {
+        "event_id": 1,
+        "firebase_id": "1a",
+        "category": "football",
+        "date": "19/08/2022",
+        "time": "20:00",
+        "duration": 1,
+        "gender": "male",
+        "skills_level": "1",
+        "location": "M8 0AE",
+        "needed_players": 3,
+        "age_group": "50+",
+        "cost": 5
+      }
+    }
+  },
+  "POST /api/events/:event_id/comments": {
+    "description": "gives the client the ability to post comments on a specific event",
+    "exampleResponse": {
+      "comments": {
+        "comment_id": 1,
+        "firebase_id": "1a",
+        "event_id": 1,
+        "comment_body": "Are there any refreshments?",
+        "comment_time": "2022-09-16T14:23:00.000Z"
+      }
+    }
+  },
+  "POST /api/user/events": {
+    "description": "gives the client the ability to book a specific event",
+    "exampleResponse": { "userevent_id": 1, "firebase_id": "1a", "event_id": 1 }
+  },
+
+  "PATCH /api/events/:event_id": {
+    "description": "gives users the ability to update the selected event",
+    "exampleResponse": {
+      "event": {
+        "event_id": 1,
+        "firebase_id": "1a",
+        "category": "football",
+        "date": "19/08/2022",
+        "time": "20:00",
+        "duration": 1,
+        "gender": "male",
+        "skills_level": "1",
+        "location": "M8 0AE",
+        "needed_players": 3,
+        "age_group": "50+",
+        "cost": 5
+      }
+    }
+  },
+  "PATCH /api/users": {
+    "description": "gives users the ability to update the their details",
+    "exampleResponse": {
+      "user": {
+        "user_id": 1,
+        "firebase_id": "1a",
+        "username": "BarryC",
+        "name": "Barry Curtis",
+        "age": 21,
+        "gender": "male",
+        "profile_icon": "https://media.istockphoto.com/photos/ordinary-man-smiling-picture-id182174089?k=20&m=182174089&s=612x612&w=0&h=foKfJKm1MC3-bxFksAGvW4OJGIUQibt6yqWnVTRXYEI=",
+        "skills_level": "fun",
+        "rating": 5,
+        "event_id": 1
+      }
+    }
+  }
+}
