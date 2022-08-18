@@ -150,7 +150,7 @@ export const bookEvent = (firebase_id: string, event_id: string) => {
 };
 export const fetchUserEvents = (firebase_id: String) => {
   return db
-    .query(`SELECT * FROM userevents WHERE firebase_id = $1;`, [firebase_id])
+    .query(`SELECT * FROM userevents JOIN events ON userevents.event_id = events.event_id WHERE userevents.firebase_id = $1;`, [firebase_id])
     .then((result) => {
       return result.rows;
     });
