@@ -9,15 +9,15 @@ Some of the features include:
 - You can ask questions or comment on events
 - You can create a new event which users can then sign up to
 
-You can view the app by going to the following link: https://example.netlify.app
+You can view the app by going to the following link: https://guileless-cupcake-a879ed.netlify.app/
 
-To view the frontend for this app please go to the following repo: https://github.com/BabsLTD/FindAGameFE
+To view the frontend for this app please go to the following repo: https://github.com/BarryCurtis/FindAGameFE
 
 Minimum version needed to run: Node.js version 18.1
 
 To clone the repo:
 
-- Visit the gitHub repo: https://github.com/BabsLTD/FindAGameBE
+- Visit the gitHub repo: https://github.com/BarryCurtis/FindAGameBE
 - Fork the repo
 - Copy the CODE for the forked repo
 - Create a new working directory in your code editor
